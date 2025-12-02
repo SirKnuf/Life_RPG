@@ -1,0 +1,105 @@
+{
+  "skills": {
+    "Finanziell": [
+      "TUI"
+    ],
+    "Intellektuell": [
+      "Studium"
+    ],
+    "Physisch": [
+      "Volleyball"
+    ],
+    "Spirituell": [
+      "Yoga"
+    ],
+    "Sprachlich": [
+      "Spanisch"
+    ]
+  },
+  "people": {
+    "Franke": 4.0,
+    "Jan": 6.5,
+    "Joanna": 8.0,
+    "Justus": 9.0,
+    "Lea": 6.0,
+    "Lena": 10.0,
+    "Mama": 8.0,
+    "Papa": 8.0,
+    "Papino": 9.0,
+    "Simon": 9.5,
+    "Zo\u00e9": 8.0
+  },
+  "mood_tags": {},
+  "thought_activity": {
+    "Daily": 0,
+    "Deep_Thoughts": 0,
+    "Insights": 0
+  },
+  "daily_activities": {
+    "skill_task_count": {
+      "Finanziell": 0,
+      "Intellektuell": 0,
+      "Spirituell": 0,
+      "Physisch": 0,
+      "Sozial": 0,
+      "Sprachlich": 0
+    },
+    "skill_xp_gained": {
+      "Finanziell": 0.0,
+      "Intellektuell": 0.0,
+      "Spirituell": 0.0,
+      "Physisch": 0.0,
+      "Sozial": 0.0,
+      "Sprachlich": 0.0
+    },
+    "person_interactions": {
+      "Simon": 2,
+      "Franke": 1,
+      "Mama": 1,
+      "Papa": 1
+    }
+  },
+  "latest_daily_stats": {
+    "skill_task_count": {
+      "Finanziell": 0,
+      "Intellektuell": 0,
+      "Spirituell": 0,
+      "Physisch": 0,
+      "Sozial": 0,
+      "Sprachlich": 0
+    },
+    "skill_xp_gained": {
+      "Finanziell": 0.0,
+      "Intellektuell": 0.0,
+      "Spirituell": 0.0,
+      "Physisch": 0.0,
+      "Sozial": 0.0,
+      "Sprachlich": 0.0
+    },
+    "skill_xp_gained_total": 0.0
+  },
+  "latest_date": "2025-12-01",
+  "total_xp": 0.0,
+  "xp_breakdown": {
+    "Gesamt_Tags": 0.0,
+    "05_Thoughts/Daily": 0.0,
+    "05_Thoughts/Deep_Thoughts": 0.0,
+    "05_Thoughts/Insights": 0.0,
+    "Gesamt_Thoughts": 0.0,
+    "Gesamt_Aktiv": 0.0,
+    "Finanziell": 0.0,
+    "Intellektuell": 0.0,
+    "Spirituell": 0.0,
+    "Physisch": 0.0,
+    "Sozial": 0.0,
+    "Sprachlich": 0.0
+  },
+  "skill_xp_gained": {
+    "Finanziell": 0.0,
+    "Intellektuell": 0.0,
+    "Spirituell": 0.0,
+    "Physisch": 0.0,
+    "Sozial": 0.0,
+    "Sprachlich": 0.0
+  }
+}

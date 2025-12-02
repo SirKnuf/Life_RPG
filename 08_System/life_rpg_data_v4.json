@@ -1,0 +1,138 @@
+{
+  "skills": {
+    "Finanziell": [
+      "Animateur",
+      "Besucher Screening",
+      "Fitness Trainer",
+      "Leer - & Vollgut",
+      "Tutor Elektrodynamik",
+      "Tutor Quantenmechanik"
+    ],
+    "Intellektuell": [
+      "Forschungsarbeit Weiche Materie",
+      "HTML und CSS",
+      "Java",
+      "Latex",
+      "Medizinische Physik B. Sc.",
+      "Physics M. Sc.",
+      "Physik B. Sc.",
+      "Python",
+      "Studium"
+    ],
+    "Physisch": [
+      "Calisthenics",
+      "Laufen",
+      "Spazieren",
+      "Turnen",
+      "Volleyball"
+    ],
+    "Sozial": [
+      "Ehrenamt",
+      "Freizeit",
+      "TV Geseke 1862",
+      "\u00dcbungsleiter"
+    ],
+    "Spirituell": [
+      "Meditation",
+      "Yoga"
+    ],
+    "Sprachlich": [
+      "Deutsch (Muttersprache)",
+      "Englisch",
+      "Japanisch",
+      "Russisch",
+      "Spanisch"
+    ]
+  },
+  "people": {
+    "Franke": 4.0,
+    "Jan": 6.5,
+    "Joanna": 8.0,
+    "Justus": 9.0,
+    "Lea": 6.0,
+    "Lena": 10.0,
+    "Mama": 8.0,
+    "Papa": 8.0,
+    "Papino": 9.0,
+    "Simon": 9.5,
+    "Zo\u00e9": 8.0
+  },
+  "mood_tags": {},
+  "thought_activity": {
+    "Daily": 0,
+    "Deep_Thoughts": 0,
+    "Insights": 0
+  },
+  "daily_activities": {
+    "skill_minutes_spent": {
+      "Finanziell": 510.0,
+      "Intellektuell": 240.0,
+      "Spirituell": 0.0,
+      "Physisch": 260.0,
+      "Sozial": 150.0,
+      "Sprachlich": 0.0,
+      "Allgemein": 580.0
+    },
+    "skill_time_xp_gained": {
+      "Finanziell": 68.0,
+      "Intellektuell": 24.0,
+      "Spirituell": 0.0,
+      "Physisch": 17.333333333333336,
+      "Sozial": 12.5,
+      "Sprachlich": 0.0,
+      "Allgemein": 9.666666666666668
+    },
+    "skill_task_xp_gained": {
+      "Finanziell": 0.0,
+      "Intellektuell": 0.0,
+      "Spirituell": 0.0,
+      "Physisch": 0.0,
+      "Sozial": 0.0,
+      "Sprachlich": 0.0,
+      "Allgemein": 0.0
+    },
+    "skill_task_count": {
+      "Finanziell": 0.0,
+      "Intellektuell": 0.0,
+      "Spirituell": 0.0,
+      "Physisch": 0.0,
+      "Sozial": 0.0,
+      "Sprachlich": 0.0,
+      "Allgemein": 0.0
+    },
+    "person_interactions": {
+      "Simon": 2,
+      "Franke": 1,
+      "Mama": 1,
+      "Papa": 1
+    }
+  },
+  "latest_daily_stats": {
+    "minutes_spent_total": 0.0,
+    "tasks_completed_total": 0,
+    "total_xp_gained_today": 0.0,
+    "time_xp_today": 131.5,
+    "task_xp_today": 0.0
+  },
+  "latest_date": "2025-12-01",
+  "total_xp": 131.5,
+  "xp_breakdown": {
+    "Gesamt_Tags": 0.0,
+    "05_Thoughts/Daily": 0.0,
+    "05_Thoughts/Deep_Thoughts": 0.0,
+    "05_Thoughts/Insights": 0.0,
+    "Gesamt_Thoughts": 0.0,
+    "Gesamt_Aktiv": 131.5,
+    "Gesamt_Aktiv_Zeit": 131.5,
+    "Gesamt_Aktiv_Aufgabe": 0.0
+  },
+  "skill_xp_gained": {
+    "Finanziell": 68.0,
+    "Intellektuell": 24.0,
+    "Spirituell": 0.0,
+    "Physisch": 17.333333333333336,
+    "Sozial": 12.5,
+    "Sprachlich": 0.0,
+    "Allgemein": 9.666666666666668
+  }
+}

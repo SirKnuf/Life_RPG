@@ -1,0 +1,1 @@
+Hier kann ich nur das Hiragana lesen, selbst sprechen oder weitere Kenntnisse besitze ich nicht

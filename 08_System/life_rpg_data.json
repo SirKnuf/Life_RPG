@@ -1,0 +1,123 @@
+{
+    "skills": {
+        "Finanziell": [
+            "TUI"
+        ],
+        "Intellektuell": [
+            "Studium"
+        ],
+        "Physisch": [
+            "Volleyball"
+        ],
+        "Spirituell": [
+            "Yoga"
+        ],
+        "Sprachlich": [
+            "Spanisch"
+        ]
+    },
+    "people": {
+        "Franke": 4.0,
+        "Joanna": 8.0,
+        "Justus": 9.0,
+        "Lea": 6.0,
+        "Lena": 10.0,
+        "Mama": 8.0,
+        "Papa": 8.0,
+        "Papino": 9.0,
+        "Simon": 9.5,
+        "Zoé": 8.0
+    },
+    "mood_tags": {},
+    "thought_activity": {
+        "Daily": 0,
+        "Deep_Thoughts": 0,
+        "Insights": 0
+    },
+    "daily_activities": {
+        "skill_time_spent_minutes": {
+            "Finanziell": 1170,
+            "Intellektuell": 240,
+            "Spirituell": 0,
+            "Physisch": 260,
+            "Sozial": 270,
+            "Sprachlich": 0,
+            "Allgemein": 580
+        },
+        "person_interactions": {
+            "Simon": 2,
+            "Franke": 1,
+            "Mama": 1,
+            "Papa": 1
+        }
+    },
+    "latest_daily_stats": {
+        "skill_time_spent_minutes": {
+            "Finanziell": 240,
+            "Intellektuell": 0,
+            "Spirituell": 0,
+            "Physisch": 0,
+            "Sozial": 0,
+            "Sprachlich": 0,
+            "Allgemein": 45
+        }
+    },
+    "latest_date": "2025-11-30",
+    "skill_xp_gained": {
+        "Finanziell": 78.0,
+        "Intellektuell": 24.0,
+        "Spirituell": 0.0,
+        "Physisch": 17.333333333333332,
+        "Sozial": 22.5,
+        "Sprachlich": 0.0,
+        "Allgemein": 9.666666666666666
+    },
+    "daily_skill_xp_gained": {
+        "Finanziell": 16.0,
+        "Intellektuell": 0.0,
+        "Spirituell": 0.0,
+        "Physisch": 0.0,
+        "Sozial": 0.0,
+        "Sprachlich": 0.0,
+        "Allgemein": 0.75
+    },
+    "total_xp": 300.0,
+    "xp_breakdown": {
+        "Gesamt_Tags": 50.0,
+        "05_Thoughts/Daily": 0.0,
+        "05_Thoughts/Deep_Thoughts": 0.0,
+        "05_Thoughts/Insights": 0.0,
+        "Gesamt_Thoughts": 25.0,
+        "Gesamt_Aktiv": 300.0,
+        "Intellektuell": 150.0,
+        "Physisch": 75.0,
+        "Finanziell": 0.0,
+        "Sozial": 0.0
+    },
+    "attributes": [
+        {
+            "title": "Bachelor",
+            "description": "B. Sc. Medical Physics"
+        },
+        {
+            "title": "Programmierer",
+            "description": "HTML, CSS, Python, Javascript & Latex"
+        },
+        {
+            "title": "Sprachen",
+            "description": "Deutsch, English, etwas Spanisch; Lesen von Kyrilisch, Griechisch und das Hiragana"
+        },
+        {
+            "title": "Lizenzen",
+            "description": "Führerschein (B, A2), Übungsleiter (C, B in Gruppenfitness), Emergency Response"
+        },
+        {
+            "title": "Musiker",
+            "description": "Gitarre"
+        },
+        {
+            "title": "Ehrenamt",
+            "description": "Stellvertretender Jugendwart"
+        }
+    ]
+}

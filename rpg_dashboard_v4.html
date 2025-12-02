@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Life-RPG Dashboard V4 (Hybrid: Zeit & ToDo)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* CSS-Stilvorlagen (unverändert) */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        
+        :root {
+            --rpg-bg: #1f2937; 
+            --rpg-primary: #10b981; 
+            --rpg-secondary: #fcd34d; 
+            --rpg-time: #3b82f6; /* Blau für Zeit-Metrik */
+            --rpg-task: #f97316; /* Orange für Aufgaben-Metrik */
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--rpg-bg);
+            color: #f3f4f6;
+            margin: 0;
+            padding: 20px;
+        }
+        .stat-card {
+            background-color: #374151; 
+            border: 2px solid var(--rpg-primary);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            transition: transform 0.2s;
+        }
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+        }
+        .progress-bar-fill {
+            height: 100%;
+            background-color: var(--rpg-primary);
+            transition: width 1s ease-out;
+            border-radius: 4px;
+        }
+        .pulse-text {
+            animation: pulse-glow 2s infinite;
+        }
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 5px var(--rpg-secondary); }
+            50% { box-shadow: 0 0 10px var(--rpg-secondary), 0 0 15px rgba(252, 211, 77, 0.4); }
+        }
+    </style>
+</head>
+<body>
+
+<div id="app" class="max-w-6xl mx-auto space-y-8">
+    
+    <header class="bg-gray-800 p-6 rounded-lg text-center border-b-4 border-rpg-primary">
+        <h1 class="text-4xl font-extrabold text-rpg-primary mb-2">Abenteurer-Status V4 (Hybrid)</h1>
+        <p class="text-gray-400 text-lg">Aktualisiert: <span id="last-updated">Lade Daten...</span></p>
+        
+        <div class="flex flex-col md:flex-row justify-center items-center mt-4 space-y-4 md:space-y-0 md:space-x-8">
+            <div class="p-3 bg-gray-700 rounded-lg pulse-text">
+                <span class="text-4xl font-mono" id="total-xp">0.00</span> 
+                <span class="text-rpg-secondary text-sm block mt-1">GESAMT XP</span>
+            </div>
+            
+            <div class="p-3">
+                <span class="text-4xl font-mono text-white mb-2 block" id="current-level">Level 1</span> 
+                <div class="w-64 bg-gray-600 rounded-full h-3 mb-1 mx-auto">
+                    <div class="progress-bar-fill" id="level-progress-bar" style="width: 0%;"></div>
+                </div>
+                <span class="text-gray-400 text-sm block" id="xp-to-next-level">0/100 XP bis Level 2</span> 
+            </div>
+        </div>
+    </header>
+
+    <main class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <section class="lg:col-span-2 space-y-6">
+            <h2 class="text-3xl font-bold text-rpg-secondary border-b border-gray-600 pb-2">Skill-Progress [Kombinierte XP]</h2>
+            
+            <div id="skill-progress-container" class="space-y-4">
+                </div>
+            
+            <h2 class="text-3xl font-bold text-rpg-secondary border-b border-gray-600 pb-2 pt-4">Skill Tiefenanalyse (Minuten vs. Aufgaben-XP)</h2>
+            <div id="skill-deep-dive-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                </div>
+        </section>
+
+        <aside class="lg:col-span-1 space-y-6">
+            
+            <div class="stat-card p-4 rounded-lg">
+                <h3 class="text-xl font-semibold text-rpg-primary mb-3">Tägliches Protokoll (<span id="latest-date">---</span>)</h3>
+                <div id="daily-log-stats" class="text-sm space-y-2">
+                    </div>
+            </div>
+            
+            <div class="stat-card p-4 rounded-lg">
+                <h3 class="text-xl font-semibold text-rpg-primary mb-3">XP-Quellen Breakdown</h3>
+                <div id="xp-breakdown-container" class="grid grid-cols-2 gap-3">
+                    </div>
+            </div>
+
+            <div class="stat-card p-4 rounded-lg">
+                <h3 class="text-xl font-semibold text-rpg-primary mb-3">Abenteuer-Attribute</h3>
+                <ul id="attribute-list" class="text-sm space-y-3">
+                    </ul>
+            </div>
+
+        </aside>
+
+    </main>
+    
+    <section class="lg:col-span-3 space-y-6 pt-8">
+        <h2 class="text-3xl font-bold text-rpg-primary border-b border-gray-600 pb-2">03_Skills Übersicht (Vault Struktur)</h2>
+        <div id="skill-overview-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            </div>
+    </section>
+
+</div>
+
+<script>
+    // --- 1. MOCK DATA (WICHTIG: Dieser Block wird durch 'update_rpg_dashboard_v4.py' ersetzt!) ---
+// <START_JSON_INJECTION>
+    const MOCK_DATA = {
+    "skills": {
+        "Finanziell": [
+            "Animateur",
+            "Besucher Screening",
+            "Fitness Trainer",
+            "Leer - & Vollgut",
+            "Tutor Elektrodynamik",
+            "Tutor Quantenmechanik"
+        ],
+        "Intellektuell": [
+            "Forschungsarbeit Weiche Materie",
+            "HTML und CSS",
+            "Java",
+            "Latex",
+            "Medizinische Physik B. Sc.",
+            "Physics M. Sc.",
+            "Physik B. Sc.",
+            "Python",
+            "Studium"
+        ],
+        "Physisch": [
+            "Calisthenics",
+            "Laufen",
+            "Spazieren",
+            "Turnen",
+            "Volleyball"
+        ],
+        "Sozial": [
+            "Ehrenamt",
+            "Freizeit",
+            "TV Geseke 1862",
+            "Übungsleiter"
+        ],
+        "Spirituell": [
+            "Meditation",
+            "Yoga"
+        ],
+        "Sprachlich": [
+            "Deutsch (Muttersprache)",
+            "Englisch",
+            "Japanisch",
+            "Russisch",
+            "Spanisch"
+        ]
+    },
+    "people": {
+        "Franke": 4.0,
+        "Jan": 6.5,
+        "Joanna": 8.0,
+        "Justus": 9.0,
+        "Lea": 6.0,
+        "Lena": 10.0,
+        "Mama": 8.0,
+        "Papa": 8.0,
+        "Papino": 9.0,
+        "Simon": 9.5,
+        "Zoé": 8.0
+    },
+    "mood_tags": {},
+    "thought_activity": {
+        "Daily": 0,
+        "Deep_Thoughts": 0,
+        "Insights": 0
+    },
+    "daily_activities": {
+        "skill_minutes_spent": {
+            "Finanziell": 510.0,
+            "Intellektuell": 240.0,
+            "Spirituell": 0.0,
+            "Physisch": 260.0,
+            "Sozial": 150.0,
+            "Sprachlich": 0.0,
+            "Allgemein": 580.0
+        },
+        "skill_time_xp_gained": {
+            "Finanziell": 68.0,
+            "Intellektuell": 24.0,
+            "Spirituell": 0.0,
+            "Physisch": 17.333333333333336,
+            "Sozial": 12.5,
+            "Sprachlich": 0.0,
+            "Allgemein": 9.666666666666668
+        },
+        "skill_task_xp_gained": {
+            "Finanziell": 0.0,
+            "Intellektuell": 0.0,
+            "Spirituell": 0.0,
+            "Physisch": 0.0,
+            "Sozial": 0.0,
+            "Sprachlich": 0.0,
+            "Allgemein": 0.0
+        },
+        "skill_task_count": {
+            "Finanziell": 0.0,
+            "Intellektuell": 0.0,
+            "Spirituell": 0.0,
+            "Physisch": 0.0,
+            "Sozial": 0.0,
+            "Sprachlich": 0.0,
+            "Allgemein": 0.0
+        },
+        "person_interactions": {
+            "Simon": 2,
+            "Franke": 1,
+            "Mama": 1,
+            "Papa": 1
+        }
+    },
+    "latest_daily_stats": {
+        "minutes_spent_total": 0.0,
+        "tasks_completed_total": 0,
+        "total_xp_gained_today": 0.0,
+        "time_xp_today": 131.5,
+        "task_xp_today": 0.0
+    },
+    "latest_date": "2025-12-01",
+    "total_xp": 131.5,
+    "xp_breakdown": {
+        "Gesamt_Tags": 0.0,
+        "05_Thoughts/Daily": 0.0,
+        "05_Thoughts/Deep_Thoughts": 0.0,
+        "05_Thoughts/Insights": 0.0,
+        "Gesamt_Thoughts": 0.0,
+        "Gesamt_Aktiv": 131.5,
+        "Gesamt_Aktiv_Zeit": 131.5,
+        "Gesamt_Aktiv_Aufgabe": 0.0
+    },
+    "skill_xp_gained": {
+        "Finanziell": 68.0,
+        "Intellektuell": 24.0,
+        "Spirituell": 0.0,
+        "Physisch": 17.333333333333336,
+        "Sozial": 12.5,
+        "Sprachlich": 0.0,
+        "Allgemein": 9.666666666666668
+    },
+    "attributes": [
+        {
+            "title": "Bachelor",
+            "description": "B. Sc. Medical Physics"
+        },
+        {
+            "title": "Programmierer",
+            "description": "HTML, CSS, Python, Javascript & Latex"
+        },
+        {
+            "title": "Sprachen",
+            "description": "Deutsch, English, etwas Spanisch; Lesen von Kyrilisch, Griechisch und das Hiragana"
+        },
+        {
+            "title": "Lizenzen",
+            "description": "Führerschein (B, A2), Übungsleiter (C, B in Gruppenfitness), Emergency Response"
+        },
+        {
+            "title": "Musiker",
+            "description": "Gitarre"
+        },
+        {
+            "title": "Ehrenamt",
+            "description": "Stellvertretender Jugendwart"
+        }
+    ]
+};
+// <END_JSON_INJECTION>
+
+    // Ladefunktion
+    async function loadData() {
+        return MOCK_DATA;
+    }
+
+    // --- HILFSFUNKTIONEN ---
+    function formatMinutes(minutes) {
+        if (minutes === 0) return "0m";
+        const h = Math.floor(minutes / 60);
+        const m = minutes % 60;
+        return `${h > 0 ? h + 'h ' : ''}${m > 0 ? m + 'm' : ''}`.trim();
+    }
+
+    function getXpRequired(level) {
+        if (level === 1) return 100;
+        return 100 * Math.pow(1.5, level - 1);
+    }
+
+    function calculateLevelData(xp) {
+        let currentLevel = 1;
+        let xpAtStartOfCurrentLevel = 0;
+        let xpRequiredForNextLevel = getXpRequired(1);
+
+        while (xp >= xpAtStartOfCurrentLevel + xpRequiredForNextLevel) {
+            xpAtStartOfCurrentLevel += xpRequiredForNextLevel;
+            currentLevel++;
+            xpRequiredForNextLevel = getXpRequired(currentLevel);
+        }
+        
+        return {
+            level: currentLevel,
+            xpStart: xpAtStartOfCurrentLevel,
+            xpRequired: xpRequiredForNextLevel
+        };
+    }
+    
+    // --- RENDERING FUNKTIONEN ---
+    
+    // Rendert einen einzelnen Skill-Progress-Balken (Kombinierte XP)
+    function renderSkillProgress(skillName, currentXp, maxXp) {
+        const max = maxXp > 0 ? maxXp : 1; 
+        const percentage = Math.min(100, (currentXp / max) * 100);
+        
+        return `
+            <div class="stat-card p-3 rounded-lg flex flex-col">
+                <div class="flex justify-between items-center mb-1">
+                    <span class="text-lg font-semibold text-white">${skillName}</span>
+                    <span class="text-rpg-secondary text-sm">${currentXp.toFixed(2)} XP (Komb.)</span>
+                </div>
+                <div class="w-full bg-gray-600 rounded-full h-3">
+                    <div class="progress-bar-fill" style="width: ${percentage}%;"></div>
+                </div>
+            </div>
+        `;
+    }
+
+    // Rendert die Dual-Metriken pro Skill
+    function renderSkillDeepDive(skillName, minutes, taskXp) {
+        const totalXp = taskXp + (minutes > 0 ? 0.1 : 0); // Hack: Füge minimal XP hinzu, damit es angezeigt wird, wenn nur Minuten da sind.
+        if (totalXp === 0) return '';
+        
+        const minutesFormatted = formatMinutes(minutes);
+        
+        return `
+            <div class="stat-card p-3 rounded-lg flex flex-col">
+                <h4 class="text-xl font-bold text-white mb-2">${skillName}</h4>
+                <div class="flex justify-between items-center text-sm mb-1">
+                    <span class="font-semibold" style="color: var(--rpg-time);">⏱️ Zeitaufwand:</span>
+                    <span class="font-mono text-gray-300">${minutesFormatted}</span>
+                </div>
+                <div class="flex justify-between items-center text-sm">
+                    <span class="font-semibold" style="color: var(--rpg-task);">✅ Aufgaben XP:</span>
+                    <span class="font-mono text-gray-300">${taskXp.toFixed(2)} XP</span>
+                </div>
+            </div>
+        `;
+    }
+
+    // Rendert die interaktive Skills Übersicht
+    function renderSkillOverview(skills) {
+        const container = document.getElementById('skill-overview-container');
+        let html = '';
+        
+        const sortedCategories = Object.keys(skills).sort();
+        
+        for (const category of sortedCategories) {
+            const skillFiles = skills[category];
+            
+            if (category === '03_Skills' || !skillFiles || skillFiles.length === 0) continue;
+
+            html += `
+                <div class="stat-card p-3 rounded-lg border-2 border-rpg-secondary">
+                    <details>
+                        <summary class="cursor-pointer text-xl font-bold text-rpg-primary hover:text-white transition duration-150">
+                            ${category} (${skillFiles.length} Einträge)
+                        </summary>
+                        <ul class="mt-3 ml-2 list-disc list-inside text-sm text-gray-300 space-y-1">
+                            ${skillFiles.map(file => `
+                                <li class="truncate hover:text-rpg-secondary transition duration-100">${file}</li>
+                            `).join('')}
+                        </ul>
+                    </details>
+                </div>
+            `;
+        }
+        container.innerHTML = html;
+    }
+
+
+    // Haupt-Render-Funktion
+    async function renderDashboard() {
+        const stats = await loadData();
+        
+        document.getElementById('last-updated').textContent = new Date().toLocaleTimeString('de-DE');
+
+        // --- Header Stats ---
+        const totalXp = stats.total_xp || 0;
+        document.getElementById('total-xp').textContent = totalXp.toFixed(2);
+        
+        const levelData = calculateLevelData(totalXp);
+        const xpSinceLastLevel = totalXp - levelData.xpStart;
+        const progressPercentage = (xpSinceLastLevel / levelData.xpRequired) * 100;
+        
+        document.getElementById('current-level').textContent = `Level ${levelData.level}`;
+        document.getElementById('xp-to-next-level').textContent = `${xpSinceLastLevel.toFixed(2)} / ${levelData.xpRequired.toFixed(2)} XP bis Level ${levelData.level + 1}`;
+        document.getElementById('level-progress-bar').style.width = `${progressPercentage}%`;
+
+
+        // --- Latest Daily Log ---
+        document.getElementById('latest-date').textContent = stats.latest_date || 'N/A';
+        const daily = stats.latest_daily_stats;
+        
+        const totalDailyXp = (daily.total_xp_gained_today || 0).toFixed(2);
+        const totalMinutes = formatMinutes(daily.minutes_spent_total || 0);
+        const totalTasks = daily.tasks_completed_total || 0;
+        
+        let dailyLogHtml = `<p class="font-bold text-rpg-secondary text-lg mb-2">XP Heute: ${totalDailyXp}</p>`;
+        
+        dailyLogHtml += `<p class="font-semibold" style="color: var(--rpg-time);">⏱️ Zeitaufwand: <span class="text-white">${totalMinutes}</span></p>`;
+        dailyLogHtml += `<p class="font-semibold" style="color: var(--rpg-task);">✅ Aufgaben erledigt: <span class="text-white">${totalTasks}x</span></p>`;
+        
+        document.getElementById('daily-log-stats').innerHTML = dailyLogHtml || '<p class="text-gray-500">Heute noch keine aktive XP protokolliert.</p>';
+
+
+        // --- XP Breakdown (Detailierte XP-Quellen) ---
+        const xpBreakdownContainer = document.getElementById('xp-breakdown-container');
+        let breakdownHtml = '';
+        const relevantXpKeys = [
+            {key: "Gesamt_Aktiv_Zeit", label: "Zeit XP", color: "var(--rpg-time)"}, 
+            {key: "Gesamt_Aktiv_Aufgabe", label: "Aufgaben XP", color: "var(--rpg-task)"},
+            {key: "Gesamt_Tags", label: "Passive Tags", color: "var(--rpg-primary)"}, 
+            {key: "Gesamt_Thoughts", label: "Gedanken", color: "var(--rpg-primary)"}
+        ];
+        
+        relevantXpKeys.forEach(item => {
+            if (stats.xp_breakdown && stats.xp_breakdown[item.key]) {
+                const value = stats.xp_breakdown[item.key].toFixed(2);
+                breakdownHtml += `
+                    <div class="stat-card p-2 rounded-lg text-center" style="border-color: ${item.color};">
+                        <p class="text-xl font-mono" style="color: ${item.color};">${value}</p>
+                        <p class="text-xs text-gray-400 mt-1">${item.label}</p>
+                    </div>
+                `;
+            }
+        });
+        xpBreakdownContainer.innerHTML = breakdownHtml;
+
+
+        // --- Skill Progress Bars (Kumulierte Kombinierte XP) ---
+        const skillXp = stats.skill_xp_gained || {};
+        const maxXp = Math.max(...Object.values(skillXp).filter(v => v !== null), 1); 
+        
+        const sortedXp = Object.entries(skillXp).sort(([, a], [, b]) => b - a);
+        
+        const skillContainer = document.getElementById('skill-progress-container');
+        skillContainer.innerHTML = sortedXp
+            .filter(([, xp]) => xp > 0)
+            .map(([skill, xp]) => renderSkillProgress(skill, xp, maxXp))
+            .join('');
+
+        // --- Skill Deep Dive (Dual-Metriken) ---
+        const skillDeepDiveContainer = document.getElementById('skill-deep-dive-container');
+        let deepDiveHtml = '';
+        const allSkills = new Set([...Object.keys(stats.daily_activities.skill_minutes_spent || {}), ...Object.keys(stats.daily_activities.skill_task_xp_gained || {})]);
+
+        for (const skill of Array.from(allSkills).sort()) {
+            const minutes = stats.daily_activities.skill_minutes_spent[skill] || 0;
+            const taskXp = stats.daily_activities.skill_task_xp_gained[skill] || 0;
+            deepDiveHtml += renderSkillDeepDive(skill, minutes, taskXp);
+        }
+        
+        skillDeepDiveContainer.innerHTML = deepDiveHtml || '<p class="lg:col-span-2 text-gray-500">Noch keine aktive Metriken erfasst (Zeit oder Aufgaben).</p>';
+
+
+        // --- Attributes (Unverändert) ---
+        const attributesList = document.getElementById('attribute-list');
+        const attributes = stats.attributes || [];
+        
+        attributesList.innerHTML = attributes.map(attr => {
+            return `
+                <li class="p-2 border border-gray-600 rounded-md">
+                    <p class="font-bold text-rpg-secondary">${attr.title}</p>
+                    <p class="text-xs text-gray-400 mt-0.5">${attr.description}</p>
+                </li>
+            `;
+        }).join('') || '<li class="text-gray-500 p-2">Noch keine speziellen Attribute freigeschaltet.</li>';
+        
+        // --- Skill Overview (V3 Feature) ---
+        renderSkillOverview(stats.skills || {});
+    }
+
+    // --- 4. INITIALISIERUNG ---
+    document.addEventListener('DOMContentLoaded', () => {
+        renderDashboard();
+    });
+
+</script>
+
+</body>
+</html>
