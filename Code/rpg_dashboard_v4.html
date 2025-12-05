@@ -14,6 +14,7 @@
             --rpg-secondary: #fcd34d; 
             --rpg-time: #3b82f6; /* Blau für Zeit-Metrik */
             --rpg-task: #f97316; /* Orange für Aufgaben-Metrik */
+            --rpg-todo: #ef4444; /* Rot für ToDos */
         }
         body {
             font-family: 'Inter', sans-serif;
@@ -109,6 +110,13 @@
     </main>
     
     <section class="lg:col-span-3 space-y-6 pt-8">
+        <h2 class="text-3xl font-bold text-rpg-todo border-b border-gray-600 pb-2">Offene ToDo-Liste (nach Skill)</h2>
+        <p class="text-gray-400">Aufgaben aus <code>01_Core/todo_list.md</code>, gruppiert nach Skill-Kategorie.</p>
+        <div id="open-todo-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            </div>
+    </section>
+
+    <section class="lg:col-span-3 space-y-6 pt-8">
         <h2 class="text-3xl font-bold text-rpg-primary border-b border-gray-600 pb-2">03_Skills Übersicht (Vault Struktur)</h2>
         <div id="skill-overview-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             </div>
@@ -122,9 +130,10 @@
     const MOCK_DATA = {
     "skills": {
         "Finanziell": [
-            "Animateur",
             "Besucher Screening",
             "Fitness Trainer",
+            "Gastronomie - Weihnachtsmarkt",
+            "Hotel Animateur",
             "Leer - & Vollgut",
             "Tutor Elektrodynamik",
             "Tutor Quantenmechanik"
@@ -135,21 +144,21 @@
             "Java",
             "Latex",
             "Medizinische Physik B. Sc.",
-            "Physics M. Sc.",
-            "Physik B. Sc.",
-            "Python",
-            "Studium"
+            "Physik B. Sc. (in Arbeit)",
+            "Python"
         ],
         "Physisch": [
             "Calisthenics",
             "Laufen",
+            "Pilates",
             "Spazieren",
             "Turnen",
             "Volleyball"
         ],
         "Sozial": [
-            "Ehrenamt",
-            "Freizeit",
+            "Leitung von Lehrgängen",
+            "Organisation und Moderation von Turnwettkämpfen",
+            "Stellvertretender Jugendwart OWTJ",
             "TV Geseke 1862",
             "Übungsleiter"
         ],
@@ -160,9 +169,9 @@
         "Sprachlich": [
             "Deutsch (Muttersprache)",
             "Englisch",
-            "Japanisch",
-            "Russisch",
-            "Spanisch"
+            "Japanisch (nur Hiragana)",
+            "Russisch A1",
+            "Spanisch A2"
         ]
     },
     "people": {
@@ -187,39 +196,39 @@
     "daily_activities": {
         "skill_minutes_spent": {
             "Finanziell": 510.0,
-            "Intellektuell": 240.0,
+            "Intellektuell": 900.0,
             "Spirituell": 0.0,
-            "Physisch": 260.0,
+            "Physisch": 380.0,
             "Sozial": 150.0,
             "Sprachlich": 0.0,
             "Allgemein": 580.0
         },
         "skill_time_xp_gained": {
             "Finanziell": 68.0,
-            "Intellektuell": 24.0,
+            "Intellektuell": 90.0,
             "Spirituell": 0.0,
-            "Physisch": 17.333333333333336,
+            "Physisch": 25.333333333333336,
             "Sozial": 12.5,
             "Sprachlich": 0.0,
             "Allgemein": 9.666666666666668
         },
         "skill_task_xp_gained": {
-            "Finanziell": 0.0,
+            "Finanziell": 1.0,
             "Intellektuell": 0.0,
             "Spirituell": 0.0,
             "Physisch": 0.0,
             "Sozial": 0.0,
             "Sprachlich": 0.0,
-            "Allgemein": 0.0
+            "Allgemein": 4.0
         },
         "skill_task_count": {
-            "Finanziell": 0.0,
+            "Finanziell": 1.0,
             "Intellektuell": 0.0,
             "Spirituell": 0.0,
             "Physisch": 0.0,
             "Sozial": 0.0,
             "Sprachlich": 0.0,
-            "Allgemein": 0.0
+            "Allgemein": 4.0
         },
         "person_interactions": {
             "Simon": 2,
@@ -228,33 +237,50 @@
             "Papa": 1
         }
     },
-    "latest_daily_stats": {
-        "minutes_spent_total": 0.0,
-        "tasks_completed_total": 0,
-        "total_xp_gained_today": 0.0,
-        "time_xp_today": 131.5,
-        "task_xp_today": 0.0
+    "open_tasks": {
+        "Finanziell": [],
+        "Intellektuell": [
+            "Quanten Übungsblatt #study"
+        ],
+        "Spirituell": [],
+        "Physisch": [],
+        "Sozial": [],
+        "Sprachlich": [
+            "Hiragana wieder testen #language"
+        ],
+        "Allgemein": [
+            "PKM Vorlesung 03.12",
+            "Laufschuhe waschen #task",
+            "dieses Projekt weiter bearbeiten #task"
+        ]
     },
-    "latest_date": "2025-12-01",
-    "total_xp": 131.5,
+    "latest_daily_stats": {
+        "minutes_spent_total": 390.0,
+        "tasks_completed_total": 1,
+        "total_xp_gained_today": 36.0,
+        "time_xp_today": 35.0,
+        "task_xp_today": 1.0
+    },
+    "latest_date": "2025-12-03",
+    "total_xp": 210.5,
     "xp_breakdown": {
         "Gesamt_Tags": 0.0,
         "05_Thoughts/Daily": 0.0,
         "05_Thoughts/Deep_Thoughts": 0.0,
         "05_Thoughts/Insights": 0.0,
         "Gesamt_Thoughts": 0.0,
-        "Gesamt_Aktiv": 131.5,
-        "Gesamt_Aktiv_Zeit": 131.5,
-        "Gesamt_Aktiv_Aufgabe": 0.0
+        "Gesamt_Aktiv": 210.5,
+        "Gesamt_Aktiv_Zeit": 205.5,
+        "Gesamt_Aktiv_Aufgabe": 5.0
     },
     "skill_xp_gained": {
-        "Finanziell": 68.0,
-        "Intellektuell": 24.0,
+        "Finanziell": 69.0,
+        "Intellektuell": 90.0,
         "Spirituell": 0.0,
-        "Physisch": 17.333333333333336,
+        "Physisch": 25.333333333333336,
         "Sozial": 12.5,
         "Sprachlich": 0.0,
-        "Allgemein": 9.666666666666668
+        "Allgemein": 13.666666666666668
     },
     "attributes": [
         {
@@ -341,9 +367,9 @@
         `;
     }
 
-    // Rendert die Dual-Metriken pro Skill
+    // Rendert die Dual-Metriken pro Skill (Unverändert)
     function renderSkillDeepDive(skillName, minutes, taskXp) {
-        const totalXp = taskXp + (minutes > 0 ? 0.1 : 0); // Hack: Füge minimal XP hinzu, damit es angezeigt wird, wenn nur Minuten da sind.
+        const totalXp = taskXp + (minutes > 0 ? 0.1 : 0); 
         if (totalXp === 0) return '';
         
         const minutesFormatted = formatMinutes(minutes);
@@ -362,8 +388,47 @@
             </div>
         `;
     }
+    
+    // NEU: Rendert die offene ToDo-Liste nach Skill
+    function renderOpenToDos(openTasks) {
+        const container = document.getElementById('open-todo-container');
+        let html = '';
+        let totalOpenTasks = 0;
+        
+        const sortedCategories = Object.keys(openTasks).sort();
+        
+        for (const category of sortedCategories) {
+            const tasks = openTasks[category];
+            
+            if (!tasks || tasks.length === 0) continue;
+            totalOpenTasks += tasks.length;
 
-    // Rendert die interaktive Skills Übersicht
+            // Nutze <details> und <summary> für die native Falt-Funktion
+            html += `
+                <div class="stat-card p-3 rounded-lg border-2" style="border-color: var(--rpg-todo);">
+                    <details open>
+                        <summary class="cursor-pointer text-xl font-bold text-rpg-todo hover:text-white transition duration-150">
+                            ${category} (${tasks.length} ToDos)
+                        </summary>
+                        <ul class="mt-3 ml-2 list-disc list-inside text-sm text-gray-300 space-y-2">
+                            ${tasks.map(task => `
+                                <li class="truncate hover:text-rpg-secondary transition duration-100">${task}</li>
+                            `).join('')}
+                        </ul>
+                    </details>
+                </div>
+            `;
+        }
+        
+        if (totalOpenTasks === 0) {
+            container.innerHTML = '<p class="lg:col-span-3 text-gray-500 text-lg p-4 bg-gray-700 rounded-lg text-center">🎉 Kein offenes ToDo! Zeit für eine neue Quest!</p>';
+        } else {
+            container.innerHTML = html;
+        }
+    }
+
+
+    // Rendert die interaktive Skills Übersicht (Unverändert)
     function renderSkillOverview(skills) {
         const container = document.getElementById('skill-overview-container');
         let html = '';
@@ -400,7 +465,7 @@
         
         document.getElementById('last-updated').textContent = new Date().toLocaleTimeString('de-DE');
 
-        // --- Header Stats ---
+        // --- Header Stats --- (Unverändert)
         const totalXp = stats.total_xp || 0;
         document.getElementById('total-xp').textContent = totalXp.toFixed(2);
         
@@ -413,7 +478,7 @@
         document.getElementById('level-progress-bar').style.width = `${progressPercentage}%`;
 
 
-        // --- Latest Daily Log ---
+        // --- Latest Daily Log --- (Unverändert)
         document.getElementById('latest-date').textContent = stats.latest_date || 'N/A';
         const daily = stats.latest_daily_stats;
         
@@ -429,7 +494,7 @@
         document.getElementById('daily-log-stats').innerHTML = dailyLogHtml || '<p class="text-gray-500">Heute noch keine aktive XP protokolliert.</p>';
 
 
-        // --- XP Breakdown (Detailierte XP-Quellen) ---
+        // --- XP Breakdown (Unverändert) ---
         const xpBreakdownContainer = document.getElementById('xp-breakdown-container');
         let breakdownHtml = '';
         const relevantXpKeys = [
@@ -453,7 +518,7 @@
         xpBreakdownContainer.innerHTML = breakdownHtml;
 
 
-        // --- Skill Progress Bars (Kumulierte Kombinierte XP) ---
+        // --- Skill Progress Bars (Kumulierte Kombinierte XP) --- (Unverändert)
         const skillXp = stats.skill_xp_gained || {};
         const maxXp = Math.max(...Object.values(skillXp).filter(v => v !== null), 1); 
         
@@ -465,7 +530,7 @@
             .map(([skill, xp]) => renderSkillProgress(skill, xp, maxXp))
             .join('');
 
-        // --- Skill Deep Dive (Dual-Metriken) ---
+        // --- Skill Deep Dive (Dual-Metriken) --- (Unverändert)
         const skillDeepDiveContainer = document.getElementById('skill-deep-dive-container');
         let deepDiveHtml = '';
         const allSkills = new Set([...Object.keys(stats.daily_activities.skill_minutes_spent || {}), ...Object.keys(stats.daily_activities.skill_task_xp_gained || {})]);
@@ -479,7 +544,7 @@
         skillDeepDiveContainer.innerHTML = deepDiveHtml || '<p class="lg:col-span-2 text-gray-500">Noch keine aktive Metriken erfasst (Zeit oder Aufgaben).</p>';
 
 
-        // --- Attributes (Unverändert) ---
+        // --- Attributes --- (Unverändert)
         const attributesList = document.getElementById('attribute-list');
         const attributes = stats.attributes || [];
         
@@ -492,8 +557,11 @@
             `;
         }).join('') || '<li class="text-gray-500 p-2">Noch keine speziellen Attribute freigeschaltet.</li>';
         
-        // --- Skill Overview (V3 Feature) ---
+        // --- Skill Overview (V3 Feature) --- (Unverändert)
         renderSkillOverview(stats.skills || {});
+        
+        // --- Open ToDos (NEU) ---
+        renderOpenToDos(stats.open_tasks || {});
     }
 
     // --- 4. INITIALISIERUNG ---

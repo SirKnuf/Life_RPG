@@ -4,24 +4,39 @@
     "type": "split",
     "children": [
       {
-        "id": "5f88b1eb256ae4ea",
+        "id": "fd4880b70385c3a4",
         "type": "tabs",
         "children": [
           {
-            "id": "94cb9532cf16ddb9",
+            "id": "412f046087a0c26e",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "07_Journal/2025-11-28.md",
+                "file": "07_Journal/2025-12-04.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "2025-11-28"
+              "title": "2025-12-04"
+            }
+          },
+          {
+            "id": "d7f0d3b9d18e99ee",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "07_Journal/2025-12-03.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "2025-12-03"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -169,34 +184,36 @@
       "bases:Create new base": false
     }
   },
-  "active": "94cb9532cf16ddb9",
+  "active": "d7f0d3b9d18e99ee",
   "lastOpenFiles": [
-    "Untitled.canvas",
+    "07_Journal/2025-12-04.md",
+    "07_Journal/2025-12-03.md",
+    "01_Core/MoodLog Template.md",
+    "08_System/life_rpg_data_v5.json",
+    "07_Journal/2025-11-30.md",
+    "07_Journal/2025-12-01.md",
+    "07_Journal/2025-12-02.md",
+    "07_Journal/2025-11-28.md",
+    "07_Journal/2025-11-29.md",
+    "01_Core/todo_list.md",
+    "01_Core/attributes.md",
+    "06_RPG/XP_Log/2025-12-04.md",
+    "06_RPG/XP_Log/2025-11-27.md",
+    "06_RPG/XP_Log/2025-11-26.md",
+    "06_RPG/XP_Log/2025-12-03.md",
     "06_RPG/Player_Stats.md",
-    "03_Skills/Spirituell/Meditation.md",
-    "03_Skills/Physisch/Spazieren.md",
-    "03_Skills/Physisch/Laufen.md",
-    "03_Skills/Physisch/Calisthenics.md",
-    "02_People/Justus.md",
-    "02_People/Papino.md",
-    "02_People/Zoé.md",
-    "03_Skills/Sprachlich/Japanisch.md",
-    "03_Skills/Sprachlich/Russisch.md",
-    "03_Skills/Finanziell/Fitness Trainer.md",
-    "03_Skills/Finanziell/Animateur.md",
-    "03_Skills/Finanziell/Leer - & Vollgut.md",
-    "03_Skills/Finanziell/Besucher Screening.md",
-    "03_Skills/Finanziell/Tutor Quantenmechanik.md",
-    "03_Skills/Finanziell/Tutor Elektrodynamik.md",
-    "03_Skills/Intellektuell/Latex.md",
-    "03_Skills/Intellektuell/HTML und CSS.md",
-    "03_Skills/Intellektuell/Java.md",
-    "03_Skills/Intellektuell/Python.md",
-    "03_Skills/Intellektuell/Forschungsarbeit Weiche Materie.md",
-    "03_Skills/Intellektuell/Medizinische Physik B. Sc..md",
-    "03_Skills/Intellektuell/Physics M. Sc..md",
-    "03_Skills/Intellektuell/Physik B. Sc..md",
-    "03_Skills/Physisch/Untitled.md",
+    "06_RPG/Emotion_Stats.md",
+    "03_Skills/Sprachlich/Spanisch A2.md",
+    "03_Skills/Sprachlich/Russisch A1.md",
+    "03_Skills/Sprachlich/Japanisch (nur Hiragana).md",
+    "03_Skills/Physisch/Pilates.md",
+    "03_Skills/Sozial/Organisation und Moderation von Turnwettkämpfen.md",
+    "03_Skills/Sozial/Stellvertretender Jugendwart OWTJ.md",
+    "03_Skills/Sozial/Freizeit.md",
+    "03_Skills/Sozial/Leitung von Lehrgängen.md",
+    "03_Skills/Intellektuell/Physik B. Sc. (in Arbeit).md",
+    "03_Skills/Finanziell/Hotel Animateur.md",
+    "Untitled.canvas",
     "08_System/life_rpg_data_v4.json",
     "start_rpg_sync.py",
     "start_rpg_sync.py.py",
@@ -205,7 +222,6 @@
     "Code/rpg_dashboard_v4.html",
     "Code/update_rpg_dashboard_v4.py",
     "Code/update_rpg_dashboard.py",
-    "Code/rpg_dashboard_v3.html",
-    "Code/rpg_dashboard.html"
+    "Code/rpg_dashboard_v3.html"
   ]
 }

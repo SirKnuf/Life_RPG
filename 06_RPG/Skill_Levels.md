@@ -23,4 +23,4 @@ Diese Liste verfolgt die Gesamtzeit, die du in jede Skill-Kategorie investiert h
 ### Spirituell
 - [[Yoga]]
 ### Sprachlich
-- [[Spanisch]]
+- [[Spanisch A2]]

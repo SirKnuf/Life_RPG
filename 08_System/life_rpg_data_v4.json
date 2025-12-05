@@ -1,9 +1,10 @@
 {
   "skills": {
     "Finanziell": [
-      "Animateur",
       "Besucher Screening",
       "Fitness Trainer",
+      "Gastronomie - Weihnachtsmarkt",
+      "Hotel Animateur",
       "Leer - & Vollgut",
       "Tutor Elektrodynamik",
       "Tutor Quantenmechanik"
@@ -14,21 +15,21 @@
       "Java",
       "Latex",
       "Medizinische Physik B. Sc.",
-      "Physics M. Sc.",
-      "Physik B. Sc.",
-      "Python",
-      "Studium"
+      "Physik B. Sc. (in Arbeit)",
+      "Python"
     ],
     "Physisch": [
       "Calisthenics",
       "Laufen",
+      "Pilates",
       "Spazieren",
       "Turnen",
       "Volleyball"
     ],
     "Sozial": [
-      "Ehrenamt",
-      "Freizeit",
+      "Leitung von Lehrg\u00e4ngen",
+      "Organisation und Moderation von Turnwettk\u00e4mpfen",
+      "Stellvertretender Jugendwart OWTJ",
       "TV Geseke 1862",
       "\u00dcbungsleiter"
     ],
@@ -39,9 +40,9 @@
     "Sprachlich": [
       "Deutsch (Muttersprache)",
       "Englisch",
-      "Japanisch",
-      "Russisch",
-      "Spanisch"
+      "Japanisch (nur Hiragana)",
+      "Russisch A1",
+      "Spanisch A2"
     ]
   },
   "people": {
@@ -66,39 +67,39 @@
   "daily_activities": {
     "skill_minutes_spent": {
       "Finanziell": 510.0,
-      "Intellektuell": 240.0,
+      "Intellektuell": 900.0,
       "Spirituell": 0.0,
-      "Physisch": 260.0,
+      "Physisch": 380.0,
       "Sozial": 150.0,
       "Sprachlich": 0.0,
       "Allgemein": 580.0
     },
     "skill_time_xp_gained": {
       "Finanziell": 68.0,
-      "Intellektuell": 24.0,
+      "Intellektuell": 90.0,
       "Spirituell": 0.0,
-      "Physisch": 17.333333333333336,
+      "Physisch": 25.333333333333336,
       "Sozial": 12.5,
       "Sprachlich": 0.0,
       "Allgemein": 9.666666666666668
     },
     "skill_task_xp_gained": {
-      "Finanziell": 0.0,
+      "Finanziell": 1.0,
       "Intellektuell": 0.0,
       "Spirituell": 0.0,
       "Physisch": 0.0,
       "Sozial": 0.0,
       "Sprachlich": 0.0,
-      "Allgemein": 0.0
+      "Allgemein": 4.0
     },
     "skill_task_count": {
-      "Finanziell": 0.0,
+      "Finanziell": 1.0,
       "Intellektuell": 0.0,
       "Spirituell": 0.0,
       "Physisch": 0.0,
       "Sozial": 0.0,
       "Sprachlich": 0.0,
-      "Allgemein": 0.0
+      "Allgemein": 4.0
     },
     "person_interactions": {
       "Simon": 2,
@@ -107,32 +108,49 @@
       "Papa": 1
     }
   },
-  "latest_daily_stats": {
-    "minutes_spent_total": 0.0,
-    "tasks_completed_total": 0,
-    "total_xp_gained_today": 0.0,
-    "time_xp_today": 131.5,
-    "task_xp_today": 0.0
+  "open_tasks": {
+    "Finanziell": [],
+    "Intellektuell": [
+      "Quanten \u00dcbungsblatt #study"
+    ],
+    "Spirituell": [],
+    "Physisch": [],
+    "Sozial": [],
+    "Sprachlich": [
+      "Hiragana wieder testen #language"
+    ],
+    "Allgemein": [
+      "PKM Vorlesung 03.12",
+      "Laufschuhe waschen #task",
+      "dieses Projekt weiter bearbeiten #task"
+    ]
   },
-  "latest_date": "2025-12-01",
-  "total_xp": 131.5,
+  "latest_daily_stats": {
+    "minutes_spent_total": 390.0,
+    "tasks_completed_total": 1,
+    "total_xp_gained_today": 36.0,
+    "time_xp_today": 35.0,
+    "task_xp_today": 1.0
+  },
+  "latest_date": "2025-12-03",
+  "total_xp": 210.5,
   "xp_breakdown": {
     "Gesamt_Tags": 0.0,
     "05_Thoughts/Daily": 0.0,
     "05_Thoughts/Deep_Thoughts": 0.0,
     "05_Thoughts/Insights": 0.0,
     "Gesamt_Thoughts": 0.0,
-    "Gesamt_Aktiv": 131.5,
-    "Gesamt_Aktiv_Zeit": 131.5,
-    "Gesamt_Aktiv_Aufgabe": 0.0
+    "Gesamt_Aktiv": 210.5,
+    "Gesamt_Aktiv_Zeit": 205.5,
+    "Gesamt_Aktiv_Aufgabe": 5.0
   },
   "skill_xp_gained": {
-    "Finanziell": 68.0,
-    "Intellektuell": 24.0,
+    "Finanziell": 69.0,
+    "Intellektuell": 90.0,
     "Spirituell": 0.0,
-    "Physisch": 17.333333333333336,
+    "Physisch": 25.333333333333336,
     "Sozial": 12.5,
     "Sprachlich": 0.0,
-    "Allgemein": 9.666666666666668
+    "Allgemein": 13.666666666666668
   }
 }
