@@ -1,9 +1,10 @@
 # Aktive Aufgabenliste
 
-- [ ] Laufschuhe waschen
-- [ ] Quanten Übungsblatt 
-- [ ] dieses Projekt weiter bearbeiten
-- [ ] Hiragana wieder testen
-- [ ] Quanten Vorlesung 5.12
-- [ ] PKM Vorlesung 5.12
-- [ ] Astro Vorlesung 4.12
+- [ ] Bürgerbüro (führungszeugnis und einwohnermeldeamt)
+- [ ] Quanten Blatt 14 mündlich
+- [ ] Astrophysik Vorlesungen (nach 29.01)
+
+## DAILY
+- [ ] Kapitel in PKM oder Kapitel in Quanten
+- [ ] Übungsblatt Quanten
+- [ ] Übungsblatt PKM

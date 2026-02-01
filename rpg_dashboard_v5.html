@@ -5,43 +5,13 @@
     <title>Life-RPG Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Konfigurieren der Inter-Schriftart und eines dunklen, konsolenartigen Hintergrunds */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
-        
-        :root {
-            --rpg-bg: #1f2937; /* Dunkles Grau/Blau */
-            --rpg-primary: #10b981; /* Smaragdgrün */
-            --rpg-secondary: #fcd34d; /* Gelb */
-        }
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--rpg-bg);
-            color: #f3f4f6;
-            margin: 0;
-            padding: 20px;
-        }
-        .stat-card {
-            background-color: #374151; /* Etwas helleres Grau für Karten */
-            border: 2px solid var(--rpg-primary);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-            transition: transform 0.2s;
-        }
-        .stat-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
-        }
-        .progress-bar-container {
-            height: 12px;
-            background-color: #4b5563;
-            border-radius: 6px;
-            overflow: hidden;
-            margin-top: 5px;
-        }
-        .progress-bar {
-            height: 100%;
-            background-color: var(--rpg-secondary);
-            transition: width 0.5s ease-in-out;
-        }
+        :root { --rpg-bg: #1f2937; --rpg-primary: #10b981; --rpg-secondary: #fcd34d; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--rpg-bg); color: #f3f4f6; padding: 20px; margin: 0; }
+        .stat-card { background-color: #374151; border: 2px solid var(--rpg-primary); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); }
+        .progress-bar-container { height: 12px; background-color: #4b5563; border-radius: 6px; overflow: hidden; margin-top: 5px; }
+        .progress-bar { height: 100%; transition: width 0.5s ease-in-out; }
+        .scroll-area { height: 320px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--rpg-primary) transparent; }
     </style>
 </head>
 <body>
@@ -50,463 +20,220 @@
     
     <header class="text-center pb-4 border-b border-gray-600">
         <h1 class="text-4xl font-extrabold text-rpg-primary">LIFE-RPG DASHBOARD V5</h1>
-        <p class="text-lg text-gray-300 mt-1" id="latest-sync-date">Letzte Synchro: Lade...</p>
+        <p class="text-lg text-gray-300 mt-1" id="latest-sync-date">Lade...</p>
     </header>
 
     <section>
-        <h2 class="text-2xl font-bold text-rpg-secondary mb-4">Spieler-Status</h2>
-        <div id="player-status-card" class="stat-card p-6 rounded-lg shadow-xl grid grid-cols-1 md:grid-cols-3 gap-6">
-            
+        <div id="player-status-card" class="stat-card p-6 rounded-lg grid grid-cols-1 md:grid-cols-3 gap-6">
             <div>
                 <p class="text-sm font-semibold text-gray-400">Level</p>
                 <p id="current-level" class="text-5xl font-extrabold text-white">?</p>
             </div>
-
             <div>
                 <p class="text-sm font-semibold text-gray-400">Gesamt-XP</p>
                 <p id="total-xp" class="text-3xl font-bold text-white">0.0</p>
             </div>
-
-            <div id="xp-progress-container">
-                <p class="text-sm font-semibold text-gray-400">Fortschritt zum nächsten Level</p>
+            <div>
+                <p class="text-sm font-semibold text-gray-400">Fortschritt</p>
                 <div class="progress-bar-container">
-                    <div id="xp-progress-bar" class="progress-bar" style="width: 0%;"></div>
+                    <div id="xp-progress-bar" class="progress-bar" style="width: 0%; background-color: var(--rpg-secondary);"></div>
                 </div>
-                <p class="text-sm text-gray-300 mt-1">
-                    <span id="xp-since-level">0.0</span> / <span id="xp-required">0.0</span> XP
-                </p>
+                <p class="text-sm text-gray-300 mt-1"><span id="xp-since-level">0</span> / 100 XP</p>
             </div>
         </div>
     </section>
+
+    <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="stat-card p-4 rounded-lg">
+            <p class="text-sm font-semibold text-gray-400">XP Heute</p>
+            <p id="xp-gained-today" class="text-3xl font-bold text-rpg-primary">0.0</p>
+        </div>
+        <div class="stat-card p-4 rounded-lg">
+            <p class="text-sm font-semibold text-gray-400">Aufgaben erledigt</p>
+            <p id="tasks-completed-total" class="text-3xl font-bold text-white">0</p>
+        </div>
+        <div class="stat-card p-4 rounded-lg">
+            <h3 class="text-xs font-semibold text-rpg-secondary uppercase">Highlights</h3>
+            <div class="text-sm mt-1">
+                <p class="flex justify-between"><span>KM:</span> <span id="total-run-km-display" class="text-rpg-primary font-mono">0.0</span></p>
+                <p class="flex justify-between"><span>Zeit:</span> <span id="total-run-minutes-display" class="text-rpg-primary font-mono">0h</span></p>
+                <p class="flex justify-between"><span>Sally (Best):</span> <span id="latest-sallyup-display" class="text-rpg-primary font-mono">N/A</span></p>
+            </div>
+        </div>
+        <div class="stat-card p-4 rounded-lg">
+            <p class="text-sm font-semibold text-gray-400">Aktivzeit Heute</p>
+            <p id="minutes-spent-total" class="text-3xl font-bold text-white">0 min</p>
+        </div>
+    </section>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
     
-    <section>
-        <h2 class="text-2xl font-bold text-rpg-secondary mb-4">Aktive Metriken (Heute/Neuestes)</h2>
-        <div id="latest-daily-stats" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            
-            <div class="stat-card p-4 rounded-lg">
-                <p class="text-sm font-semibold text-gray-400">XP heute verdient</p>
-                <p id="xp-gained-today" class="text-3xl font-bold text-rpg-primary">0.0</p>
-            </div>
-
-            <div class="stat-card p-4 rounded-lg">
-                <p class="text-sm font-semibold text-gray-400">Aufgaben erledigt</p>
-                <p id="tasks-completed-total" class="text-3xl font-bold text-white">0</p>
-            </div>
-
-            <div class="stat-card p-4 rounded-lg">
-                <h3 class="text-sm font-semibold text-rpg-secondary">Tracking-Highlights</h3>
-                <ul class="text-sm space-y-1 mt-2">
-                    <li class="flex justify-between items-center">
-                        <span class="text-white">Gelaufene Distanz (Gesamt):</span> 
-                        <span id="total-run-km-display" class="font-mono text-rpg-primary">0.0 km</span>
-                    </li>
-                    <li class="flex justify-between items-center">
-                        <span class="text-white">Gelaufene Zeit (Gesamt):</span> 
-                        <span id="total-run-minutes-display" class="font-mono text-rpg-primary">0h 00m</span>
-                    </li>
-                    <li class="flex justify-between items-center">
-                        <span class="text-white">Sally-Up (Bestzeit heute):</span> 
-                        <span id="latest-sallyup-display" class="font-mono text-rpg-primary">N/A</span>
-                    </li>
-                </ul>
-            </div>
-
-             <div class="stat-card p-4 rounded-lg">
-                <p class="text-sm font-semibold text-gray-400">Minuten aktiv heute</p>
-                <p id="minutes-spent-total" class="text-3xl font-bold text-white">0 min</p>
-            </div>
-        </div>
-    </section>
-
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        
-        <section class="lg:col-span-2">
-            <h2 class="text-2xl font-bold text-rpg-secondary mb-4">Skill-Fortschritt</h2>
-            <div id="skill-progress-list" class="space-y-4">
-                </div>
+    <div class="lg:col-span-8 space-y-8">
+        <section class="stat-card p-5 rounded-lg">
+            <h2 class="text-xl font-bold text-rpg-secondary mb-4 border-b border-gray-600 pb-2">Skill-Fortschritt (Gesamt)</h2>
+            <div id="skill-progress-list" class="space-y-4 scroll-area pr-2"></div>
         </section>
 
-        <section>
-            <h2 class="text-2xl font-bold text-rpg-secondary mb-4">Offene Quests</h2>
-            <div id="open-tasks-list" class="stat-card p-4 rounded-lg h-96 overflow-y-auto">
-                </div>
+        <section class="stat-card p-5 rounded-lg border-emerald-500">
+            <h2 class="text-xl font-bold text-rpg-primary mb-4 border-b border-gray-600 pb-2">Aktiver Tag</h2>
+            <div id="daily-breakdown-list" class="space-y-4"></div>
         </section>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-
-        <section>
-            <h2 class="text-2xl font-bold text-rpg-secondary mb-4">XP Breakdown (Aktiver Tag)</h2>
-            <div id="xp-breakdown-card" class="stat-card p-4 rounded-lg">
-                 <ul class="space-y-2 text-sm">
-                    <li class="flex justify-between items-center">
-                        <span class="text-gray-300">Durch Zeit-Aufgaben:</span>
-                        <span id="breakdown-time" class="font-mono text-rpg-primary">0.0 XP</span>
-                    </li>
-                    <li class="flex justify-between items-center">
-                        <span class="text-gray-300">Durch Punkte-Aufgaben:</span>
-                        <span id="breakdown-task" class="font-mono text-rpg-primary">0.0 XP</span>
-                    </li>
-                </ul>
-            </div>
+    <div class="lg:col-span-4 space-y-8">
+        <section class="stat-card p-5 rounded-lg">
+            <h2 class="text-xl font-bold text-rpg-secondary mb-4 border-b border-gray-600 pb-2">Offene Quests</h2>
+            <div id="open-tasks-list" class="space-y-2 scroll-area pr-2"></div>
         </section>
 
-        <section class="lg:col-span-2">
-            <h2 class="text-2xl font-bold text-rpg-secondary mb-4">Passive Statistiken</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                
-                <div class="stat-card p-4 rounded-lg">
-                    <h3 class="text-sm font-semibold text-rpg-secondary">Gedanken-Aktivität</h3>
-                    <ul id="thought-activity-list" class="space-y-1 mt-2 text-sm">
-                         </ul>
-                </div>
-
-                <div class="stat-card p-4 rounded-lg">
-                    <h3 class="text-sm font-semibold text-rpg-secondary">Häufigste Tags (Moodlog)</h3>
-                    <ul id="mood-tags-list" class="space-y-1 mt-2 text-sm">
-                        </ul>
-                </div>
-
-                <div class="stat-card p-4 rounded-lg">
-                    <h3 class="text-sm font-semibold text-rpg-secondary">Beziehungsnähe (Top 3)</h3>
-                    <ul id="people-list" class="space-y-1 mt-2 text-sm">
-                        </ul>
-                </div>
-            </div>
+        <section class="stat-card p-5 rounded-lg border-emerald-500">
+            <h2 class="text-xl font-bold text-rpg-primary mb-4 border-b border-gray-600 pb-2">Heute abgeschlossen</h2>
+            <div id="completed-today-list" class="space-y-2 scroll-area pr-2"></div>
         </section>
     </div>
 </div>
+</div>
 
 <script>
-    // --- 1. DATEN INJEKTION ---
-    // Der Python-Synchronisator ersetzt den MOCK_DATA-Block unten
 // <START_JSON_INJECTION>
     const MOCK_DATA = {
-    "skills": {},
-    "people": {
-        "Franke": 1.0,
-        "Jan": 1.0,
-        "Joanna": 1.0,
-        "Justus": 1.0,
-        "Lea": 1.0,
-        "Lena": 1.0,
-        "Mama": 1.0,
-        "Papa": 1.0,
-        "Papino": 1.0,
-        "Simon": 1.0,
-        "Zoé": 1.0
+    "total_xp": 1096.44,
+    "skill_xp_gained": {
+        "Intellektuell": 397.0,
+        "Physisch": 76.78,
+        "Finanziell": 176.0,
+        "Sozial": 234.67,
+        "Sprachlich": 7.5,
+        "Spirituell": 73.5,
+        "Allgemein": 131.0
     },
-    "mood_tags": {},
-    "thought_activity": {
-        "Daily": 0,
-        "Deep_Thoughts": 0,
-        "Erkenntnisse": 0
+    "run_metrics": {
+        "total_km": 19.2,
+        "total_minutes": 92.8
     },
-    "daily_activities": {
-        "skill_minutes_spent": {
-            "Finanziell": 300.0,
-            "Intellektuell": 180.0,
-            "Spirituell": 0.0,
-            "Physisch": 0.0,
-            "Sozial": 0.0,
-            "Sprachlich": 0.0,
-            "Allgemein": 19.75
-        },
-        "skill_time_xp_gained": {
-            "Finanziell": 0.0,
-            "Intellektuell": 0.0,
-            "Spirituell": 0.0,
-            "Physisch": 0.0,
-            "Sozial": 0.0,
-            "Sprachlich": 0.0,
-            "Allgemein": 0.0
-        },
-        "skill_task_xp_gained": {
-            "Finanziell": 40.0,
-            "Intellektuell": 18.0,
-            "Spirituell": 0.0,
-            "Physisch": 0.0,
-            "Sozial": 0.0,
-            "Sprachlich": 0.0,
-            "Allgemein": 0.32916666666666666
-        },
-        "skill_task_count": {
-            "Finanziell": 1.0,
-            "Intellektuell": 1.0,
-            "Spirituell": 0.0,
-            "Physisch": 0.0,
-            "Sozial": 0.0,
-            "Sprachlich": 0.0,
-            "Allgemein": 1.0
-        },
-        "person_interactions": {}
-    },
+    "sallyup_best_time": 2.5,
+    "last_processed_date": "2026-02-01",
     "open_tasks": {
-        "Finanziell": [],
         "Intellektuell": [],
-        "Spirituell": [],
         "Physisch": [],
+        "Finanziell": [],
         "Sozial": [],
         "Sprachlich": [],
+        "Spirituell": [],
         "Allgemein": [
-            "Laufschuhe waschen",
-            "Quanten Übungsblatt",
-            "dieses Projekt weiter bearbeiten",
-            "Hiragana wieder testen",
-            "Quanten Vorlesung 5.12",
-            "PKM Vorlesung 5.12",
-            "Astro Vorlesung 4.12"
+            "Bürgerbüro (führungszeugnis und einwohnermeldeamt)",
+            "Quanten Blatt 14 mündlich",
+            "Astrophysik Vorlesungen (nach 29.01)",
+            "Kapitel in PKM oder Kapitel in Quanten",
+            "Übungsblatt Quanten",
+            "Übungsblatt PKM"
         ]
     },
     "latest_daily_stats": {
-        "minutes_spent_total": 499.75,
-        "tasks_completed_total": 3,
-        "total_xp_gained_today": 58.329166666666666,
-        "time_xp_today": 58.329166666666666,
-        "task_xp_today": 0.0
-    },
-    "latest_date": "2025-12-04",
-    "cumulative_total_xp": 497.72833333333335,
-    "cumulative_skill_xp": {
-        "Finanziell": 178.0,
-        "Intellektuell": 216.0,
-        "Spirituell": 0.0,
-        "Physisch": 50.66666666666667,
-        "Sozial": 25.0,
-        "Sprachlich": 0.0,
-        "Allgemein": 28.061666666666667
-    },
-    "run_total_km": 9.0,
-    "run_total_minutes": 39.5,
-    "sallyup_latest_time": 0.0,
-    "total_xp": 497.72833333333335,
-    "xp_breakdown": {
-        "Gesamt_Tags": 0.0,
-        "Gesamt_Thoughts": 0.0,
-        "Gesamt_Aktiv": 497.72833333333335,
-        "Gesamt_Aktiv_Zeit": 58.329166666666666,
-        "Gesamt_Aktiv_Aufgabe": 0.0
-    },
-    "skill_xp_gained": {
-        "Finanziell": 178.0,
-        "Intellektuell": 216.0,
-        "Spirituell": 0.0,
-        "Physisch": 50.66666666666667,
-        "Sozial": 25.0,
-        "Sprachlich": 0.0,
-        "Allgemein": 28.061666666666667
-    },
-    "level_data": {
-        "level": 4,
-        "xp_since_last_level": 22.728333333333353,
-        "xp_required": 337.5
-    },
-    "last_processed_date": "2025-12-04"
+        "total_xp_today": 14.680555555555555,
+        "tasks_today": 6,
+        "minutes_today": 262.0833333333333,
+        "daily_breakdown": {
+            "Intellektuell": 8.0,
+            "Physisch": 3.6805555555555554,
+            "Finanziell": 0.0,
+            "Sozial": 0.0,
+            "Sprachlich": 0.0,
+            "Spirituell": 0.0,
+            "Allgemein": 3.0
+        },
+        "completed_today": [
+            "Quanten Aufgabe schriftlich (1h 30m) #study ",
+            "Wäsche (1p) #task ",
+            "Wäsche abgenommen (1p) #task ",
+            "Omelette gekocht (1p) #cooking ",
+            "Quanten Aufgabe mündlich (2h 30m) #study",
+            "Um die Promenade gelaufen (4.7km) (22:05min) #run"
+        ]
+    }
 };
 // <END_JSON_INJECTION>
 
-    // Ladefunktion
-    async function loadData() {
-        return MOCK_DATA;
+    function createBar(name, xp, percent, color) {
+        return `<div>
+            <div class="flex justify-between text-xs mb-1">
+                <span class="font-bold text-gray-300 uppercase">${name}</span>
+                <span class="text-rpg-secondary font-mono">${xp.toFixed(1)} XP</span>
+            </div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" style="width: ${percent}%; background-color: ${color};"></div>
+            </div>
+        </div>`;
     }
 
-    // --- 2. RENDERING FUNKTION ---
     async function renderDashboard() {
-        const stats = await loadData();
-
-        if (Object.keys(stats).length === 0) {
-            document.getElementById('latest-sync-date').textContent = "Fehler: Daten konnten nicht geladen werden.";
-            return;
-        }
-
-        // --- 1. Player Status und Level ---
-        document.getElementById('latest-sync-date').textContent = `Letzte Synchro: ${stats.latest_date || 'N/A'}`;
+        const stats = MOCK_DATA;
         
-        const levelData = stats.level_data || {};
-        const totalXP = stats.total_xp || 0.0;
+        // Header & Status
+        document.getElementById('latest-sync-date').textContent = `Synchro: ${stats.last_processed_date || 'N/A'}`;
+        const txp = stats.total_xp || 0;
+        document.getElementById('total-xp').textContent = txp.toFixed(2);
+        document.getElementById('current-level').textContent = Math.floor(txp / 100) + 1;
+        document.getElementById('xp-since-level').textContent = (txp % 100).toFixed(1);
+        document.getElementById('xp-progress-bar').style.width = `${txp % 100}%`;
+
+        // Metriken
+        const daily = stats.latest_daily_stats || {};
+        document.getElementById('xp-gained-today').textContent = (daily.total_xp_today || 0).toFixed(2);
+        document.getElementById('tasks-completed-total').textContent = daily.tasks_today || 0;
+        document.getElementById('minutes-spent-total').textContent = `${Math.round(daily.minutes_today || 0)} min`;
         
-        document.getElementById('current-level').textContent = levelData.level || 1;
-        document.getElementById('total-xp').textContent = totalXP.toFixed(2);
-
-        const xpSinceLast = levelData.xp_since_last_level || 0;
-        const xpRequired = levelData.xp_required || 100;
-        const progressPercent = xpRequired > 0 ? (xpSinceLast / xpRequired) * 100 : 0;
-
-        document.getElementById('xp-since-level').textContent = xpSinceLast.toFixed(2);
-        document.getElementById('xp-required').textContent = xpRequired.toFixed(2);
-        document.getElementById('xp-progress-bar').style.width = `${Math.min(100, progressPercent)}%`;
-
-
-        // --- 2. Aktive Metriken (Latest Daily Stats) ---
-        const latestDailyStats = stats.latest_daily_stats || {};
-        document.getElementById('xp-gained-today').textContent = (latestDailyStats.total_xp_gained_today || 0.0).toFixed(2);
-        document.getElementById('tasks-completed-total').textContent = latestDailyStats.tasks_completed_total || 0;
-        document.getElementById('minutes-spent-total').textContent = `${Math.round(latestDailyStats.minutes_spent_total || 0)} min`;
-        
-        // NEU: Zusätzliche Tracking-Metriken
-        const totalRunKm = stats.run_total_km || 0;
-        const totalRunMinutes = stats.run_total_minutes || 0; // NEU: Laufzeit in Minuten
-        const sallyUpTime = stats.sallyup_latest_time || 0;
-        
-        // A. Gesamtlaufstrecke
-        document.getElementById('total-run-km-display').textContent = 
-            `${totalRunKm.toFixed(1)} km`;
-
-        // B. Gesamtlaufzeit (Minuten in H/M konvertieren)
-        if (totalRunMinutes > 0) {
-            const hours = Math.floor(totalRunMinutes / 60);
-            const minutes = Math.round(totalRunMinutes % 60);
-
-            document.getElementById('total-run-minutes-display').textContent = 
-                `${hours}h ${minutes.toString().padStart(2, '0')}m`;
-        } else {
-             document.getElementById('total-run-minutes-display').textContent = 
-                `0h 00m`;
-        }
-        
-        // C. Sally-Up Zeit
-        if (sallyUpTime > 0) {
-            // sallyUpTime ist im Format M.SS (z.B. 2.06)
-            const minutes = Math.floor(sallyUpTime);
-            // Die Sekunden werden aus dem Dezimalteil extrahiert (*100), da Python M.SS gespeichert hat
-            const seconds = Math.round((sallyUpTime - minutes) * 100); 
-            const timeString = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-            
-            document.getElementById('latest-sallyup-display').textContent = 
-                `${timeString} min`;
-        } else {
-            document.getElementById('latest-sallyup-display').textContent = 
-                `N/A`;
-        }
-
-        // --- 3. XP Breakdown ---
-        const xpBreakdown = stats.xp_breakdown || {};
-        document.getElementById('breakdown-time').textContent = `${(xpBreakdown.Gesamt_Aktiv_Zeit || 0.0).toFixed(2)} XP`;
-        document.getElementById('breakdown-task').textContent = `${(xpBreakdown.Gesamt_Aktiv_Aufgabe || 0.0).toFixed(2)} XP`;
-
-
-        // --- 4. Skill Fortschritt ---
-        const skillXP = stats.skill_xp_gained || {};
-        const skillList = document.getElementById('skill-progress-list');
-        skillList.innerHTML = '';
-
-        const sortedSkills = Object.entries(skillXP)
-            .sort(([, a], [, b]) => b - a);
-
-        for (const [skill, xp] of sortedSkills) {
-            if (xp > 0) {
-                // Skalierung: Maximale XP im aktuellen Set finden
-                const maxXP = Math.max(...Object.values(skillXP), 1);
-                const skillPercent = (xp / maxXP) * 100;
-
-                skillList.innerHTML += `
-                    <div class="stat-card p-4 rounded-lg">
-                        <p class="font-semibold text-rpg-secondary">${skill}</p>
-                        <div class="progress-bar-container">
-                            <div class="progress-bar" style="width: ${Math.min(100, skillPercent)}%; background-color: var(--rpg-primary);"></div>
-                        </div>
-                        <p class="text-xs text-gray-400 mt-1">${xp.toFixed(2)} XP</p>
-                    </div>
-                `;
+        const rkm = stats.run_metrics?.total_km || 0;
+        const rmin = stats.run_metrics?.total_minutes || 0;
+        document.getElementById('total-run-km-display').textContent = rkm.toFixed(1) + " km";
+        document.getElementById('total-run-minutes-display').textContent = Math.floor(rmin/60) + "h " + Math.round(rmin%60) + "m";
+        // --- Sally Up Bestzeit Anzeige ---
+        const sallyMinRaw = stats.sallyup_best_time || 0;
+        const sallyDisplay = document.getElementById('latest-sallyup-display');
+        if (sallyDisplay) {
+            if (sallyMinRaw > 0) {
+                const sMin = Math.floor(sallyMinRaw);
+                const sSec = Math.round((sallyMinRaw - sMin) * 60);
+                sallyDisplay.textContent = `${sMin}:${sSec.toString().padStart(2, '0')} min`;
+            } else {
+                sallyDisplay.textContent = "0:00 min";
             }
         }
-        if (skillList.innerHTML === '') {
-            skillList.innerHTML = '<p class="text-gray-500">Noch keine aktiven XP gesammelt.</p>';
-        }
 
-        // --- 5. Offene Quests ---
-        const openTasks = stats.open_tasks || {};
-        const openTasksList = document.getElementById('open-tasks-list');
-        openTasksList.innerHTML = '';
-        
-        let totalOpenTasks = 0;
-        const allTasks = [];
-        for (const category in openTasks) {
-            allTasks.push(...openTasks[category]);
-            totalOpenTasks += openTasks[category].length;
-        }
+        // 1. Spalte: Gesamt Skills
+        const sList = document.getElementById('skill-progress-list');
+        const sData = stats.skill_xp_gained || {};
+        const maxS = Math.max(...Object.values(sData), 1);
+        Object.entries(sData).sort(([,a],[,b]) => b-a).forEach(([n, x]) => {
+            if(x > 0) sList.innerHTML += createBar(n, x, (x/maxS)*100, 'var(--rpg-primary)');
+        });
 
-        if (totalOpenTasks > 0) {
-            allTasks.forEach(task => {
-                const taskCategory = Object.keys(openTasks).find(cat => openTasks[cat].includes(task)) || 'Allgemein';
-                openTasksList.innerHTML += `
-                    <div class="p-2 border-b border-gray-700 last:border-b-0">
-                        <span class="text-xs font-mono text-rpg-secondary">[${taskCategory.charAt(0)}]</span>
-                        <span class="ml-2 text-white">${task}</span>
-                    </div>
-                `;
+        // 2. Spalte: Offene Quests
+        const oList = document.getElementById('open-tasks-list');
+        Object.entries(stats.open_tasks || {}).forEach(([cat, tasks]) => {
+            tasks.forEach(t => {
+                oList.innerHTML += `<div class="text-sm p-2 bg-gray-800/50 rounded border-l-4 border-yellow-500 mb-1">${t}</div>`;
             });
-        } else {
-            openTasksList.innerHTML = '<p class="text-gray-500 p-2">Keine offenen Quests. Großartig!</p>';
-        }
-        
-        // --- 6. Passive Stats (Gedanken, Tags, Beziehungen) ---
-        
-        // Gedanken-Aktivität
-        const thoughtActivityList = document.getElementById('thought-activity-list');
-        thoughtActivityList.innerHTML = '';
-        const sortedThoughts = Object.entries(stats.thought_activity || {})
-            .sort(([, a], [, b]) => b - a);
-            
-        if (sortedThoughts.every(([, count]) => count === 0)) {
-            thoughtActivityList.innerHTML = '<li class="text-gray-500">Keine Daten verfügbar.</li>';
-        } else {
-            sortedThoughts.forEach(([category, count]) => {
-                thoughtActivityList.innerHTML += `
-                    <li class="flex justify-between items-center">
-                        <span class="text-gray-300">${category.replace('_', ' ')}:</span> 
-                        <span class="font-mono text-rpg-primary">${count}</span>
-                    </li>
-                `;
-            });
-        }
-        
-        // Mood Tags (Top 5)
-        const moodTagsList = document.getElementById('mood-tags-list');
-        moodTagsList.innerHTML = '';
-        const sortedMoods = Object.entries(stats.mood_tags || {})
-            .sort(([, a], [, b]) => b - a)
-            .slice(0, 5); 
-            
-        if (sortedMoods.length === 0) {
-             moodTagsList.innerHTML = '<li class="text-gray-500">Keine Tags protokolliert.</li>';
-        } else {
-            sortedMoods.forEach(([tag, count]) => {
-                 moodTagsList.innerHTML += `
-                    <li class="flex justify-between items-center">
-                        <span class="text-gray-300">${tag}:</span> 
-                        <span class="font-mono text-rpg-primary">${count}</span>
-                    </li>
-                `;
-            });
-        }
-        
-        // Beziehungen (Top 3)
-        const peopleList = document.getElementById('people-list');
-        peopleList.innerHTML = '';
-        const sortedPeople = Object.entries(stats.people || {})
-            .sort(([, a], [, b]) => b - a)
-            .slice(0, 3); 
-            
-        if (sortedPeople.length === 0) {
-            peopleList.innerHTML = '<li class="text-gray-500">Keine Personen verfolgt.</li>';
-        } else {
-             sortedPeople.forEach(([name, score]) => {
-                peopleList.innerHTML += `
-                    <li class="flex justify-between items-center">
-                        <span class="text-white">${name}</span> 
-                        <span class="font-mono text-rpg-secondary">${score.toFixed(1)}/10</span>
-                    </li>
-                `;
-            });
-        }
+        });
+
+        // 3. Spalte: Heute XP
+        const dList = document.getElementById('daily-breakdown-list');
+        const dData = daily.daily_breakdown || {};
+        const maxD = Math.max(...Object.values(dData), 1);
+        Object.entries(dData).sort(([,a],[,b]) => b-a).forEach(([n, x]) => {
+            if(x > 0) dList.innerHTML += createBar(n, x, (x/maxD)*100, '#10b981');
+        });
+
+        // 4. Spalte: Heute Fertig
+        const cList = document.getElementById('completed-today-list');
+        const done = daily.completed_today || [];
+        if(done.length === 0) cList.innerHTML = "<p class='text-gray-500'>Keine Quests heute.</p>";
+        done.forEach(t => {
+            cList.innerHTML += `<div class="text-sm p-2 bg-gray-800/50 rounded border-l-4 border-green-500 mb-1">✅ ${t}</div>`;
+        });
     }
 
-    // --- 7. INITIALISIERUNG ---
-    document.addEventListener('DOMContentLoaded', () => {
-        renderDashboard();
-    });
-
+    document.addEventListener('DOMContentLoaded', renderDashboard);
 </script>
 </body>
 </html>

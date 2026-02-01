@@ -1,0 +1,8 @@
+[[Allgemeines Leben]]
+[[Ehrenamt]]
+[[Finanziell]]
+[[Gaming]]
+[[Intellektuell]]
+[[Physisch]]
+[[Spirituell]]
+[[Sprachlich]]

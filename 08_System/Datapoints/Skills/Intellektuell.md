@@ -1,0 +1,7 @@
+[[Forschungsarbeit Weiche Materie]]
+[[HTML und CSS]]
+[[Java]]
+[[Latex]]
+[[Medizinische Physik B. Sc.]]
+[[Physik B. Sc. (in Arbeit)]]
+[[Python]]

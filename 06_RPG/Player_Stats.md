@@ -1,6 +1,5 @@
-# Spieler-Status (Kumulativ)
+# Spieler-Status
 
-## Level & XP
-- **Aktuelles Level**: 4
-- **Gesamte XP**: 497.73
-- **XP bis Level 5**: 22.73 / 337.50
+- **Level**: 6
+- **XP**: 1989.56
+- **Fortschritt**: 670.81 / 759.38

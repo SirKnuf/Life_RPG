@@ -1,0 +1,5 @@
+[[Deutsch (Muttersprache)]]
+[[Englisch]]
+[[Japanisch (nur Hiragana)]]
+[[Russisch A1]]
+[[Spanisch A2]]

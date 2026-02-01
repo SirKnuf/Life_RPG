@@ -2,7 +2,7 @@
 
 ## Aktuelle Errungenschaften und passive Fähigkeiten
 
-Hier werden meine Fähigkeiten aufgelistet, die die ich im Leben gesammelt habe.
+Hier werden meine Fähigkeiten aufgelistet, die die ich im Leben gesammelt habe. (NICHT GEUPDATET)
 
 - **Bachelor**: B. Sc. Medical Physics
 - **Programmierer**: HTML, CSS, Python, Javascript & Latex

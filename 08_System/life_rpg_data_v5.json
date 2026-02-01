@@ -1,122 +1,56 @@
 {
-  "skills": {},
-  "people": {
-    "Franke": 1.0,
-    "Jan": 1.0,
-    "Joanna": 1.0,
-    "Justus": 1.0,
-    "Lea": 1.0,
-    "Lena": 1.0,
-    "Mama": 1.0,
-    "Papa": 1.0,
-    "Papino": 1.0,
-    "Simon": 1.0,
-    "Zo\u00e9": 1.0
+  "total_xp": 1096.44,
+  "skill_xp_gained": {
+    "Intellektuell": 397.0,
+    "Physisch": 76.78,
+    "Finanziell": 176.0,
+    "Sozial": 234.67,
+    "Sprachlich": 7.5,
+    "Spirituell": 73.5,
+    "Allgemein": 131.0
   },
-  "mood_tags": {},
-  "thought_activity": {
-    "Daily": 0,
-    "Deep_Thoughts": 0,
-    "Erkenntnisse": 0
+  "run_metrics": {
+    "total_km": 19.2,
+    "total_minutes": 92.8
   },
-  "daily_activities": {
-    "skill_minutes_spent": {
-      "Finanziell": 300.0,
-      "Intellektuell": 180.0,
-      "Spirituell": 0.0,
-      "Physisch": 0.0,
-      "Sozial": 0.0,
-      "Sprachlich": 0.0,
-      "Allgemein": 19.75
-    },
-    "skill_time_xp_gained": {
-      "Finanziell": 0.0,
-      "Intellektuell": 0.0,
-      "Spirituell": 0.0,
-      "Physisch": 0.0,
-      "Sozial": 0.0,
-      "Sprachlich": 0.0,
-      "Allgemein": 0.0
-    },
-    "skill_task_xp_gained": {
-      "Finanziell": 40.0,
-      "Intellektuell": 18.0,
-      "Spirituell": 0.0,
-      "Physisch": 0.0,
-      "Sozial": 0.0,
-      "Sprachlich": 0.0,
-      "Allgemein": 0.32916666666666666
-    },
-    "skill_task_count": {
-      "Finanziell": 1.0,
-      "Intellektuell": 1.0,
-      "Spirituell": 0.0,
-      "Physisch": 0.0,
-      "Sozial": 0.0,
-      "Sprachlich": 0.0,
-      "Allgemein": 1.0
-    },
-    "person_interactions": {}
-  },
+  "sallyup_best_time": 2.5,
+  "last_processed_date": "2026-02-01",
   "open_tasks": {
-    "Finanziell": [],
     "Intellektuell": [],
-    "Spirituell": [],
     "Physisch": [],
+    "Finanziell": [],
     "Sozial": [],
     "Sprachlich": [],
+    "Spirituell": [],
     "Allgemein": [
-      "Laufschuhe waschen",
-      "Quanten \u00dcbungsblatt",
-      "dieses Projekt weiter bearbeiten",
-      "Hiragana wieder testen",
-      "Quanten Vorlesung 5.12",
-      "PKM Vorlesung 5.12",
-      "Astro Vorlesung 4.12"
+      "B\u00fcrgerb\u00fcro (f\u00fchrungszeugnis und einwohnermeldeamt)",
+      "Quanten Blatt 14 m\u00fcndlich",
+      "Astrophysik Vorlesungen (nach 29.01)",
+      "Kapitel in PKM oder Kapitel in Quanten",
+      "\u00dcbungsblatt Quanten",
+      "\u00dcbungsblatt PKM"
     ]
   },
   "latest_daily_stats": {
-    "minutes_spent_total": 499.75,
-    "tasks_completed_total": 3,
-    "total_xp_gained_today": 58.329166666666666,
-    "time_xp_today": 58.329166666666666,
-    "task_xp_today": 0.0
-  },
-  "latest_date": "2025-12-04",
-  "cumulative_total_xp": 497.72833333333335,
-  "cumulative_skill_xp": {
-    "Finanziell": 178.0,
-    "Intellektuell": 216.0,
-    "Spirituell": 0.0,
-    "Physisch": 50.66666666666667,
-    "Sozial": 25.0,
-    "Sprachlich": 0.0,
-    "Allgemein": 28.061666666666667
-  },
-  "run_total_km": 9.0,
-  "run_total_minutes": 39.5,
-  "sallyup_latest_time": 0.0,
-  "total_xp": 497.72833333333335,
-  "xp_breakdown": {
-    "Gesamt_Tags": 0.0,
-    "Gesamt_Thoughts": 0.0,
-    "Gesamt_Aktiv": 497.72833333333335,
-    "Gesamt_Aktiv_Zeit": 58.329166666666666,
-    "Gesamt_Aktiv_Aufgabe": 0.0
-  },
-  "skill_xp_gained": {
-    "Finanziell": 178.0,
-    "Intellektuell": 216.0,
-    "Spirituell": 0.0,
-    "Physisch": 50.66666666666667,
-    "Sozial": 25.0,
-    "Sprachlich": 0.0,
-    "Allgemein": 28.061666666666667
-  },
-  "level_data": {
-    "level": 4,
-    "xp_since_last_level": 22.728333333333353,
-    "xp_required": 337.5
-  },
-  "last_processed_date": "2025-12-04"
+    "total_xp_today": 14.680555555555555,
+    "tasks_today": 6,
+    "minutes_today": 262.0833333333333,
+    "daily_breakdown": {
+      "Intellektuell": 8.0,
+      "Physisch": 3.6805555555555554,
+      "Finanziell": 0.0,
+      "Sozial": 0.0,
+      "Sprachlich": 0.0,
+      "Spirituell": 0.0,
+      "Allgemein": 3.0
+    },
+    "completed_today": [
+      "Quanten Aufgabe schriftlich (1h 30m) #study ",
+      "W\u00e4sche (1p) #task ",
+      "W\u00e4sche abgenommen (1p) #task ",
+      "Omelette gekocht (1p) #cooking ",
+      "Quanten Aufgabe m\u00fcndlich (2h 30m) #study",
+      "Um die Promenade gelaufen (4.7km) (22:05min) #run"
+    ]
+  }
 }

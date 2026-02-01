@@ -1,0 +1,5 @@
+[[Leitung von Lehrgängen]]
+[[Organisation und Moderation von Turnwettkämpfen]]
+[[Stellvertretender Jugendwart OWTJ]]
+[[TV Geseke 1862]]
+[[Übungsleiter]]

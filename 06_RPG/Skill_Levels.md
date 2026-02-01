@@ -13,14 +13,3 @@ Diese Liste verfolgt die Gesamtzeit, die du in jede Skill-Kategorie investiert h
 
 ---
 
-## Individuelle Skills (für zukünftiges Level-Tracking)
-### Finanziell
-- [[TUI]]
-### Intellektuell
-- [[Studium]]
-### Physisch
-- [[Volleyball]]
-### Spirituell
-- [[Yoga]]
-### Sprachlich
-- [[Spanisch A2]]
