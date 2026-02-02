@@ -117,7 +117,7 @@
         "total_minutes": 92.8
     },
     "sallyup_best_time": 2.5,
-    "last_processed_date": "2026-02-01",
+    "last_processed_date": null,
     "open_tasks": {
         "Intellektuell": [],
         "Physisch": [],
@@ -156,16 +156,7 @@
             "Um die Promenade gelaufen (4.7km) (22:05min) #run"
         ]
     },
-    "goal_progress": {
-        "Physik I Modul": {
-            "completed": 5,
-            "total": 30
-        },
-        "Sprachkurs A2": {
-            "completed": 3,
-            "total": 12
-        }
-    }
+    "goal_progress": {}
 };
 // <END_JSON_INJECTION>
 
@@ -196,8 +187,22 @@
         </div>`;
     }
 
+    async function loadDashboardData() {
+        if (window.location.protocol.startsWith('http')) {
+            try {
+                const response = await fetch('08_System/life_rpg_data_v5.json', { cache: 'no-store' });
+                if (response.ok) {
+                    return await response.json();
+                }
+            } catch (error) {
+                console.warn('Konnte JSON nicht laden, nutze MOCK_DATA.', error);
+            }
+        }
+        return MOCK_DATA;
+    }
+
     async function renderDashboard() {
-        const stats = MOCK_DATA;
+        const stats = await loadDashboardData();
         
         // Header & Status
         document.getElementById('latest-sync-date').textContent = `Synchro: ${stats.last_processed_date || 'N/A'}`;
