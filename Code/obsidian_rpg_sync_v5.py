@@ -8,6 +8,10 @@ RULES_PATH = '01_Core/XP_Calculation.md'
 TODO_LIST_PATH = '01_Core/todo_list.md'
 JSON_CACHE_PATH = '08_System/life_rpg_data_v5.json' 
 JOURNAL_DIR_NAME = '07_Journal'
+HTML_FILE_PATH = 'rpg_dashboard_v5.html'
+START_MARKER = '// <START_JSON_INJECTION>'
+END_MARKER = '// <END_JSON_INJECTION>'
+JSON_INDENT_SPACES = 4
 BASE_XP_UNIT_MINUTES = 30 
 XP_POINTS_MAPPING = {"1p": 1.0, "3p": 3.0, "5p": 5.0, "8p": 8.0}
 
@@ -76,6 +80,25 @@ def get_task_category(task_text, tag_rules):
         if tag in task_text.lower():
             return rule["category"]
     return "Allgemein"
+
+def update_dashboard_html(vault_path, data):
+    html_full_path = os.path.join(vault_path, HTML_FILE_PATH)
+    if not os.path.exists(html_full_path):
+        print(f"[WARN] HTML-Zieldatei nicht gefunden: {html_full_path}")
+        return
+    try:
+        with open(html_full_path, 'r', encoding='utf-8') as f:
+            html_content = f.read()
+        json_string = json.dumps(data, indent=JSON_INDENT_SPACES, ensure_ascii=False)
+        new_data_block = f"{START_MARKER}\n    const MOCK_DATA = {json_string};\n{END_MARKER}"
+        start_index = html_content.index(START_MARKER)
+        end_index = html_content.index(END_MARKER) + len(END_MARKER)
+        new_html_content = html_content[:start_index].rstrip() + '\n' + new_data_block + html_content[end_index:]
+        with open(html_full_path, 'w', encoding='utf-8') as f:
+            f.write(new_html_content)
+        print("[INFO] Dashboard-HTML mit aktuellen JSON-Daten aktualisiert.")
+    except ValueError:
+        print(f"[WARN] JSON-Marker in HTML nicht gefunden ({START_MARKER}/{END_MARKER}).")
 
 # --- 3. KERN-SCAN (Full Scan Modus) ---
 def scan_vault(vault_path):
@@ -199,6 +222,8 @@ def scan_vault(vault_path):
     
     with open(os.path.join(vault_path, JSON_CACHE_PATH), "w", encoding="utf-8") as f:
         json.dump(output, f, indent=2)
+
+    update_dashboard_html(vault_path, output)
     
     print(f"--- Full Sync v5 ---")
     print(f"Heute erledigt: {stats['latest_daily_stats']['tasks_today']} Aufgaben")
