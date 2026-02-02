@@ -1,0 +1,196 @@
+warning: in the working copy of '.obsidian/workspace.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '01_Core/todo_list.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '07_Journal/2026-01/2026-01-31.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '07_Journal/2026-02/2026-02-01.md', LF will be replaced by CRLF the next time Git touches it
+[1mdiff --git a/.obsidian/workspace.json b/.obsidian/workspace.json[m
+[1mindex 81c2fee..98150a3 100644[m
+[1m--- a/.obsidian/workspace.json[m
+[1m+++ b/.obsidian/workspace.json[m
+[36m@@ -13,12 +13,12 @@[m
+             "state": {[m
+               "type": "markdown",[m
+               "state": {[m
+[31m-                "file": "07_Journal/2026-02/2026-02-01.md",[m
+[32m+[m[32m                "file": "01_Core/XP_Calculation.md",[m
+                 "mode": "source",[m
+                 "source": false[m
+               },[m
+               "icon": "lucide-file",[m
+[31m-              "title": "2026-02-01"[m
+[32m+[m[32m              "title": "XP_Calculation"[m
+             }[m
+           }[m
+         ][m
+[36m@@ -53,7 +53,7 @@[m
+             "state": {[m
+               "type": "search",[m
+               "state": {[m
+[31m-                "query": "#run",[m
+[32m+[m[32m                "query": "",[m
+                 "matchingCase": false,[m
+                 "explainSearch": false,[m
+                 "collapseAll": false,[m
+[36m@@ -74,8 +74,7 @@[m
+               "title": "Bookmarks"[m
+             }[m
+           }[m
+[31m-        ],[m
+[31m-        "currentTab": 1[m
+[32m+[m[32m        ][m
+       }[m
+     ],[m
+     "direction": "horizontal",[m
+[36m@@ -170,13 +169,16 @@[m
+       "bases:Create new base": false[m
+     }[m
+   },[m
+[31m-  "active": "f1d087c69db09e29",[m
+[32m+[m[32m  "active": "1e1a9860d66e50f0",[m
+   "lastOpenFiles": [[m
+[31m-    "07_Journal/2026-01/2026-01-31.md",[m
+[31m-    "07_Journal/2026-02/2026-02-01.md",[m
+[31m-    "07_Journal/2026-02",[m
+[32m+[m[32m    "codex.patch",[m
+[32m+[m[32m    "07_Journal/2026-02/2026-02-02.md",[m
+     "01_Core/XP_Calculation.md",[m
+     "01_Core/todo_list.md",[m
+[32m+[m[32m    "07_Journal/2026-02/2026-02-01.md",[m
+[32m+[m[32m    "07_Journal/2026-01/2026-01-31.md",[m
+[32m+[m[32m    "Untitled.canvas",[m
+[32m+[m[32m    "07_Journal/2026-02",[m
+     "07_Journal/2026-01/2026-01-30.md",[m
+     "07_Journal/2026-01/2026-01-29.md",[m
+     "01_Core/MoodLog Template.md",[m
+[36m@@ -197,8 +199,6 @@[m
+     "07_Journal/2026-01/2026-01-23.md",[m
+     "07_Journal/2026-01/2026-01-22.md",[m
+     "07_Journal/2026-01/2026-01-21.md",[m
+[31m-    "01_Core/Journal Template.md",[m
+[31m-    "01_Core/Ideen für diese App.md",[m
+     "08_System/Datapoints/Skills",[m
+     "08_System/Datapoints",[m
+     "02_People/Beziehungen",[m
+[36m@@ -206,7 +206,6 @@[m
+     "02_People/Freunde",[m
+     "02_Places/Reiseorte",[m
+     "02_Places",[m
+[31m-    "Untitled.canvas",[m
+     "03_Skills/Gaming",[m
+     "02_Places/Lebensorte"[m
+   ][m
+[1mdiff --git a/01_Core/todo_list.md b/01_Core/todo_list.md[m
+[1mindex bb92ad1..b49a482 100644[m
+[1m--- a/01_Core/todo_list.md[m
+[1m+++ b/01_Core/todo_list.md[m
+[36m@@ -1,10 +1,5 @@[m
+ # Aktive Aufgabenliste[m
+ [m
+ - [ ] Bürgerbüro (führungszeugnis und einwohnermeldeamt)[m
+[31m-- [ ] Quanten Blatt 14 mündlich[m
+ - [ ] Astrophysik Vorlesungen (nach 29.01)[m
+[31m-[m
+[31m-## DAILY[m
+[31m-- [ ] Kapitel in PKM oder Kapitel in Quanten[m
+[31m-- [ ] Übungsblatt Quanten[m
+[31m-- [ ] Übungsblatt PKM[m
+[32m+[m[32m- [ ] 7 Kristallsysteme von Kristallgittern + 7 zentrierte Bravaisgitter in 3D (230 Raumgruppen)[m
+[1mdiff --git a/07_Journal/2026-01/2026-01-31.md b/07_Journal/2026-01/2026-01-31.md[m
+[1mindex e06faa1..cf22046 100644[m
+[1m--- a/07_Journal/2026-01/2026-01-31.md[m
+[1m+++ b/07_Journal/2026-01/2026-01-31.md[m
+[36m@@ -4,4 +4,5 @@[m [mLetzter Tag vom Januuaar[m
+ - [x] mit [[Franke]] gelernt (2h 0m) #study[m
+ - [x] mit [[Simon]] gefrühstückt und Skyjo gezockt (1h 20m) #social [m
+ - [x] Rasiert und frisch gemacht (45m) #selfcare [m
+[31m-- [x] Müll rausgebracht (1p) #task[m
+\ No newline at end of file[m
+[32m+[m[32m- [x] Müll rausgebracht (1p) #task[m
+[32m+[m[32m- [x] Organisation von Quantenübungen (3p) #study[m
+\ No newline at end of file[m
+[1mdiff --git a/07_Journal/2026-02/2026-02-01.md b/07_Journal/2026-02/2026-02-01.md[m
+[1mindex 64bd59b..7115401 100644[m
+[1m--- a/07_Journal/2026-02/2026-02-01.md[m
+[1m+++ b/07_Journal/2026-02/2026-02-01.md[m
+[36m@@ -6,4 +6,7 @@[m [mKalo Mina[m
+ - [x] Wäsche abgenommen (1p) #task [m
+ - [x] Omelette gekocht (1p) #cooking [m
+ - [x] Quanten Aufgabe mündlich (2h 30m) #study[m
+[31m-- [x] Um die Promenade gelaufen (4.7km) (22:05min) #run[m
+\ No newline at end of file[m
+[32m+[m[32m- [x] Um die Promenade gelaufen (4.7km) (22:05min) #run[m
+[32m+[m[32m- [x] Quanten Aufgabe (1h 0m) #study[m[41m [m
+[32m+[m[32m- [x] Dip mit Brot mega lecker  (1p) #cooking[m
+[32m+[m[32m- [x] Finanzen Aktien (3p) #finance[m[41m [m
+\ No newline at end of file[m
+[1mdiff --git a/08_System/life_rpg_data_v5.json b/08_System/life_rpg_data_v5.json[m
+[1mindex fab2466..5fc9059 100644[m
+[1m--- a/08_System/life_rpg_data_v5.json[m
+[1m+++ b/08_System/life_rpg_data_v5.json[m
+[36m@@ -1,13 +1,13 @@[m
+ {[m
+   "total_xp": 1096.44,[m
+   "skill_xp_gained": {[m
+[31m-    "Intellektuell": 397.0,[m
+     "Physisch": 76.78,[m
+[31m-    "Finanziell": 176.0,[m
+     "Sozial": 234.67,[m
+[32m+[m[32m    "Intellektuell": 397.0,[m
+[32m+[m[32m    "Allgemein": 131.0,[m
+     "Sprachlich": 7.5,[m
+     "Spirituell": 73.5,[m
+[31m-    "Allgemein": 131.0[m
+[32m+[m[32m    "Finanziell": 176.0[m
+   },[m
+   "run_metrics": {[m
+     "total_km": 19.2,[m
+[36m@@ -16,12 +16,9 @@[m
+   "sallyup_best_time": 2.5,[m
+   "last_processed_date": "2026-02-01",[m
+   "open_tasks": {[m
+[31m-    "Intellektuell": [],[m
+     "Physisch": [],[m
+[31m-    "Finanziell": [],[m
+     "Sozial": [],[m
+[31m-    "Sprachlich": [],[m
+[31m-    "Spirituell": [],[m
+[32m+[m[32m    "Intellektuell": [],[m
+     "Allgemein": [[m
+       "B\u00fcrgerb\u00fcro (f\u00fchrungszeugnis und einwohnermeldeamt)",[m
+       "Quanten Blatt 14 m\u00fcndlich",[m
+[36m@@ -29,20 +26,23 @@[m
+       "Kapitel in PKM oder Kapitel in Quanten",[m
+       "\u00dcbungsblatt Quanten",[m
+       "\u00dcbungsblatt PKM"[m
+[31m-    ][m
+[32m+[m[32m    ],[m
+[32m+[m[32m    "Sprachlich": [],[m
+[32m+[m[32m    "Spirituell": [],[m
+[32m+[m[32m    "Finanziell": [][m
+   },[m
+   "latest_daily_stats": {[m
+     "total_xp_today": 14.680555555555555,[m
+     "tasks_today": 6,[m
+     "minutes_today": 262.0833333333333,[m
+     "daily_breakdown": {[m
+[31m-      "Intellektuell": 8.0,[m
+       "Physisch": 3.6805555555555554,[m
+[31m-      "Finanziell": 0.0,[m
+       "Sozial": 0.0,[m
+[32m+[m[32m      "Intellektuell": 8.0,[m
+[32m+[m[32m      "Allgemein": 3.0,[m
+       "Sprachlich": 0.0,[m
+       "Spirituell": 0.0,[m
+[31m-      "Allgemein": 3.0[m
+[32m+[m[32m      "Finanziell": 0.0[m
+     },[m
+     "completed_today": [[m
+       "Quanten Aufgabe schriftlich (1h 30m) #study ",[m
+[36m@@ -52,5 +52,6 @@[m
+       "Quanten Aufgabe m\u00fcndlich (2h 30m) #study",[m
+       "Um die Promenade gelaufen (4.7km) (22:05min) #run"[m
+     ][m
+[31m-  }[m
+[32m+[m[32m  },[m
+[32m+[m[32m  "goal_progress": {}[m
+ }[m
+\ No newline at end of file[m

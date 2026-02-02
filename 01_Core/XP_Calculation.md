@@ -22,4 +22,5 @@
 | #metime       | Spirituell    | 1.0      | Zeit   | -         |
 | #language     | Sprachlich    | 3.0      | Zeit   | -         |
 | #selfcare     | Spirituell    | 1.0      | Zeit   | -         |
+| #PKMLecture   | Intellektuell | 1.0      | Ziel   | @PKM,28   |
 

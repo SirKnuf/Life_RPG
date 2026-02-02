@@ -86,6 +86,11 @@
             <div id="open-tasks-list" class="space-y-2 scroll-area pr-2"></div>
         </section>
 
+        <section class="stat-card p-5 rounded-lg">
+            <h2 class="text-xl font-bold text-rpg-secondary mb-4 border-b border-gray-600 pb-2">Ziel-Fortschritt</h2>
+            <div id="goal-progress-list" class="space-y-4"></div>
+        </section>
+
         <section class="stat-card p-5 rounded-lg border-emerald-500">
             <h2 class="text-xl font-bold text-rpg-primary mb-4 border-b border-gray-600 pb-2">Heute abgeschlossen</h2>
             <div id="completed-today-list" class="space-y-2 scroll-area pr-2"></div>
@@ -97,60 +102,56 @@
 <script>
 // <START_JSON_INJECTION>
     const MOCK_DATA = {
-    "total_xp": 1096.44,
+    "total_xp": 1116.94,
     "skill_xp_gained": {
-        "Intellektuell": 397.0,
-        "Physisch": 76.78,
-        "Finanziell": 176.0,
         "Sozial": 234.67,
-        "Sprachlich": 7.5,
         "Spirituell": 73.5,
-        "Allgemein": 131.0
+        "Intellektuell": 410.5,
+        "Allgemein": 135.0,
+        "Physisch": 76.78,
+        "Finanziell": 179.0,
+        "Sprachlich": 7.5
     },
     "run_metrics": {
         "total_km": 19.2,
         "total_minutes": 92.8
     },
     "sallyup_best_time": 2.5,
-    "last_processed_date": "2026-02-01",
+    "last_processed_date": "2026-02-02",
     "open_tasks": {
-        "Intellektuell": [],
-        "Physisch": [],
-        "Finanziell": [],
         "Sozial": [],
-        "Sprachlich": [],
         "Spirituell": [],
+        "Intellektuell": [],
         "Allgemein": [
             "Bürgerbüro (führungszeugnis und einwohnermeldeamt)",
-            "Quanten Blatt 14 mündlich",
             "Astrophysik Vorlesungen (nach 29.01)",
-            "Kapitel in PKM oder Kapitel in Quanten",
-            "Übungsblatt Quanten",
-            "Übungsblatt PKM"
-        ]
+            "7 Kristallsysteme von Kristallgittern + 7 zentrierte Bravaisgitter in 3D (230 Raumgruppen)"
+        ],
+        "Physisch": [],
+        "Finanziell": [],
+        "Sprachlich": []
     },
     "latest_daily_stats": {
-        "total_xp_today": 14.680555555555555,
-        "tasks_today": 6,
-        "minutes_today": 262.0833333333333,
+        "total_xp_today": 11.5,
+        "tasks_today": 4,
+        "minutes_today": 165.0,
         "daily_breakdown": {
-            "Intellektuell": 8.0,
-            "Physisch": 3.6805555555555554,
-            "Finanziell": 0.0,
             "Sozial": 0.0,
-            "Sprachlich": 0.0,
             "Spirituell": 0.0,
-            "Allgemein": 3.0
+            "Intellektuell": 8.5,
+            "Allgemein": 3.0,
+            "Physisch": 0.0,
+            "Finanziell": 0.0,
+            "Sprachlich": 0.0
         },
         "completed_today": [
-            "Quanten Aufgabe schriftlich (1h 30m) #study ",
-            "Wäsche (1p) #task ",
-            "Wäsche abgenommen (1p) #task ",
-            "Omelette gekocht (1p) #cooking ",
-            "Quanten Aufgabe mündlich (2h 30m) #study",
-            "Um die Promenade gelaufen (4.7km) (22:05min) #run"
+            "Struktur Lernplan PKM (3p) #study ",
+            "Wiederholung Vorlesung und Blatt 1 (2h 0m) #study",
+            "Wäsche + Einkauf (3p) #task",
+            "PKM Vorlesung 1 (45m) #PKMLecture "
         ]
-    }
+    },
+    "goal_progress": {}
 };
 // <END_JSON_INJECTION>
 
@@ -162,6 +163,21 @@
             </div>
             <div class="progress-bar-container">
                 <div class="progress-bar" style="width: ${percent}%; background-color: ${color};"></div>
+            </div>
+        </div>`;
+    }
+
+    function createGoalBar(name, completed, total) {
+        const percent = total ? Math.min((completed / total) * 100, 100) : 0;
+        const progressText = total ? `${completed} / ${total}` : `${completed} erledigt`;
+        const barColor = total ? 'var(--rpg-secondary)' : 'var(--rpg-primary)';
+        return `<div>
+            <div class="flex justify-between text-xs mb-1">
+                <span class="font-bold text-gray-300">${name}</span>
+                <span class="text-gray-200 font-mono">${progressText}</span>
+            </div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" style="width: ${percent}%; background-color: ${barColor};"></div>
             </div>
         </div>`;
     }
@@ -223,6 +239,18 @@
         Object.entries(dData).sort(([,a],[,b]) => b-a).forEach(([n, x]) => {
             if(x > 0) dList.innerHTML += createBar(n, x, (x/maxD)*100, '#10b981');
         });
+
+        const gList = document.getElementById('goal-progress-list');
+        const gData = stats.goal_progress || {};
+        const goalEntries = Object.entries(gData);
+        if (goalEntries.length === 0) {
+            gList.innerHTML = "<p class='text-gray-500 text-sm'>Keine Ziele gefunden.</p>";
+        } else {
+            goalEntries.sort(([,a],[,b]) => (b.completed || 0) - (a.completed || 0))
+                .forEach(([name, data]) => {
+                    gList.innerHTML += createGoalBar(name, data.completed || 0, data.total || null);
+                });
+        }
 
         // 4. Spalte: Heute Fertig
         const cList = document.getElementById('completed-today-list');

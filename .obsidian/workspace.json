@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "07_Journal/2026-02/2026-02-01.md",
+                "file": "07_Journal/2026-02/2026-02-02.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "2026-02-01"
+              "title": "2026-02-02"
             }
           }
         ]
@@ -53,7 +53,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "#run",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -74,8 +74,7 @@
               "title": "Bookmarks"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -170,13 +169,19 @@
       "bases:Create new base": false
     }
   },
-  "active": "f1d087c69db09e29",
+  "active": "1e1a9860d66e50f0",
   "lastOpenFiles": [
-    "07_Journal/2026-01/2026-01-31.md",
-    "07_Journal/2026-02/2026-02-01.md",
-    "07_Journal/2026-02",
     "01_Core/XP_Calculation.md",
+    "patch",
+    "codex.",
+    "codex.patch",
+    "exit",
+    "07_Journal/2026-02/2026-02-02.md",
     "01_Core/todo_list.md",
+    "07_Journal/2026-02/2026-02-01.md",
+    "07_Journal/2026-01/2026-01-31.md",
+    "Untitled.canvas",
+    "07_Journal/2026-02",
     "07_Journal/2026-01/2026-01-30.md",
     "07_Journal/2026-01/2026-01-29.md",
     "01_Core/MoodLog Template.md",
@@ -197,17 +202,10 @@
     "07_Journal/2026-01/2026-01-23.md",
     "07_Journal/2026-01/2026-01-22.md",
     "07_Journal/2026-01/2026-01-21.md",
-    "01_Core/Journal Template.md",
-    "01_Core/Ideen für diese App.md",
     "08_System/Datapoints/Skills",
     "08_System/Datapoints",
     "02_People/Beziehungen",
     "02_People/Familie",
-    "02_People/Freunde",
-    "02_Places/Reiseorte",
-    "02_Places",
-    "Untitled.canvas",
-    "03_Skills/Gaming",
-    "02_Places/Lebensorte"
+    "02_People/Freunde"
   ]
 }
