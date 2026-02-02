@@ -1,12 +1,12 @@
 {
   "total_xp": 1096.44,
   "skill_xp_gained": {
-    "Intellektuell": 397.0,
-    "Physisch": 76.78,
-    "Finanziell": 176.0,
-    "Sozial": 234.67,
     "Sprachlich": 7.5,
     "Spirituell": 73.5,
+    "Intellektuell": 397.0,
+    "Finanziell": 176.0,
+    "Physisch": 76.78,
+    "Sozial": 234.67,
     "Allgemein": 131.0
   },
   "run_metrics": {
@@ -16,12 +16,12 @@
   "sallyup_best_time": 2.5,
   "last_processed_date": "2026-02-01",
   "open_tasks": {
-    "Intellektuell": [],
-    "Physisch": [],
-    "Finanziell": [],
-    "Sozial": [],
     "Sprachlich": [],
     "Spirituell": [],
+    "Intellektuell": [],
+    "Finanziell": [],
+    "Physisch": [],
+    "Sozial": [],
     "Allgemein": [
       "B\u00fcrgerb\u00fcro (f\u00fchrungszeugnis und einwohnermeldeamt)",
       "Quanten Blatt 14 m\u00fcndlich",
@@ -36,12 +36,12 @@
     "tasks_today": 6,
     "minutes_today": 262.0833333333333,
     "daily_breakdown": {
-      "Intellektuell": 8.0,
-      "Physisch": 3.6805555555555554,
-      "Finanziell": 0.0,
-      "Sozial": 0.0,
       "Sprachlich": 0.0,
       "Spirituell": 0.0,
+      "Intellektuell": 8.0,
+      "Finanziell": 0.0,
+      "Physisch": 3.6805555555555554,
+      "Sozial": 0.0,
       "Allgemein": 3.0
     },
     "completed_today": [
@@ -52,5 +52,6 @@
       "Quanten Aufgabe m\u00fcndlich (2h 30m) #study",
       "Um die Promenade gelaufen (4.7km) (22:05min) #run"
     ]
-  }
+  },
+  "goal_progress": {}
 }

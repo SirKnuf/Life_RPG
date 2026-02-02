@@ -22,4 +22,4 @@
 | #metime       | Spirituell    | 1.0      | Zeit   | -         |
 | #language     | Sprachlich    | 3.0      | Zeit   | -         |
 | #selfcare     | Spirituell    | 1.0      | Zeit   | -         |
-
+| #lecture      | Intellektuell | 1.0      | Ziel   | @Name, Anzahl |

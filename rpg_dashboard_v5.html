@@ -86,6 +86,11 @@
             <div id="open-tasks-list" class="space-y-2 scroll-area pr-2"></div>
         </section>
 
+        <section class="stat-card p-5 rounded-lg">
+            <h2 class="text-xl font-bold text-rpg-secondary mb-4 border-b border-gray-600 pb-2">Ziel-Fortschritt</h2>
+            <div id="goal-progress-list" class="space-y-4"></div>
+        </section>
+
         <section class="stat-card p-5 rounded-lg border-emerald-500">
             <h2 class="text-xl font-bold text-rpg-primary mb-4 border-b border-gray-600 pb-2">Heute abgeschlossen</h2>
             <div id="completed-today-list" class="space-y-2 scroll-area pr-2"></div>
@@ -150,6 +155,16 @@
             "Quanten Aufgabe mündlich (2h 30m) #study",
             "Um die Promenade gelaufen (4.7km) (22:05min) #run"
         ]
+    },
+    "goal_progress": {
+        "Physik I Modul": {
+            "completed": 5,
+            "total": 30
+        },
+        "Sprachkurs A2": {
+            "completed": 3,
+            "total": 12
+        }
     }
 };
 // <END_JSON_INJECTION>
@@ -162,6 +177,21 @@
             </div>
             <div class="progress-bar-container">
                 <div class="progress-bar" style="width: ${percent}%; background-color: ${color};"></div>
+            </div>
+        </div>`;
+    }
+
+    function createGoalBar(name, completed, total) {
+        const percent = total ? Math.min((completed / total) * 100, 100) : 0;
+        const progressText = total ? `${completed} / ${total}` : `${completed} erledigt`;
+        const barColor = total ? 'var(--rpg-secondary)' : 'var(--rpg-primary)';
+        return `<div>
+            <div class="flex justify-between text-xs mb-1">
+                <span class="font-bold text-gray-300">${name}</span>
+                <span class="text-gray-200 font-mono">${progressText}</span>
+            </div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" style="width: ${percent}%; background-color: ${barColor};"></div>
             </div>
         </div>`;
     }
@@ -223,6 +253,18 @@
         Object.entries(dData).sort(([,a],[,b]) => b-a).forEach(([n, x]) => {
             if(x > 0) dList.innerHTML += createBar(n, x, (x/maxD)*100, '#10b981');
         });
+
+        const gList = document.getElementById('goal-progress-list');
+        const gData = stats.goal_progress || {};
+        const goalEntries = Object.entries(gData);
+        if (goalEntries.length === 0) {
+            gList.innerHTML = "<p class='text-gray-500 text-sm'>Keine Ziele gefunden.</p>";
+        } else {
+            goalEntries.sort(([,a],[,b]) => (b.completed || 0) - (a.completed || 0))
+                .forEach(([name, data]) => {
+                    gList.innerHTML += createGoalBar(name, data.completed || 0, data.total || null);
+                });
+        }
 
         // 4. Spalte: Heute Fertig
         const cList = document.getElementById('completed-today-list');
