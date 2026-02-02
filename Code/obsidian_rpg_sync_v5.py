@@ -54,7 +54,7 @@ def parse_sallyup_time(task_text):
     # Erkennt (3:40 min) oder (3:40min)
     match = re.search(r'\((?P<m>\d+):(?P<s>\d{2})\s*min\)', task_text, re.IGNORECASE)
     if match:
-        # Rückgabe als Float für den Vergleich (z.B. 3.66 Minuten)
+        # RÃ¼ckgabe als Float fÃ¼r den Vergleich (z.B. 3.66 Minuten)
         return int(match.group('m')) + (int(match.group('s')) / 60.0)
     return 0.0
 
@@ -81,7 +81,7 @@ def get_task_category(task_text, tag_rules):
 def scan_vault(vault_path):
     TAG_RULES, SKILL_CATEGORIES = load_rpg_rules(vault_path)
     
-    # Variablen für den Full-Scan (Reset bei jedem Start)
+    # Variablen fÃ¼r den Full-Scan (Reset bei jedem Start)
     total_xp = 0.0
     skill_xp = {cat: 0.0 for cat in SKILL_CATEGORIES}
     run_total_km = 0.0
