@@ -13,12 +13,20 @@
             "state": {
               "type": "markdown",
               "state": {
+<<<<<<< Updated upstream
                 "file": "07_Journal/2026-02/2026-02-02.md",
+=======
+                "file": "01_Core/XP_Calculation.md",
+>>>>>>> Stashed changes
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
+<<<<<<< Updated upstream
               "title": "2026-02-02"
+=======
+              "title": "XP_Calculation"
+>>>>>>> Stashed changes
             }
           }
         ]
@@ -171,11 +179,24 @@
   },
   "active": "1e1a9860d66e50f0",
   "lastOpenFiles": [
+<<<<<<< Updated upstream
+=======
+    "07_Journal/2026-02/2026-02-02.md",
+>>>>>>> Stashed changes
     "01_Core/XP_Calculation.md",
+    "patch",
+    "codex.",
+    "codex.patch",
+    "exit",
     "01_Core/todo_list.md",
     "07_Journal/2026-02/2026-02-01.md",
+<<<<<<< Updated upstream
     "07_Journal/2026-02/2026-02-02.md",
     "07_Journal/2026-01/2026-01-31.md",
+=======
+    "07_Journal/2026-01/2026-01-31.md",
+    "Untitled.canvas",
+>>>>>>> Stashed changes
     "07_Journal/2026-02",
     "07_Journal/2026-01/2026-01-30.md",
     "07_Journal/2026-01/2026-01-29.md",
@@ -197,16 +218,14 @@
     "07_Journal/2026-01/2026-01-23.md",
     "07_Journal/2026-01/2026-01-22.md",
     "07_Journal/2026-01/2026-01-21.md",
+<<<<<<< Updated upstream
     "01_Core/Journal Template.md",
+=======
+>>>>>>> Stashed changes
     "08_System/Datapoints/Skills",
     "08_System/Datapoints",
     "02_People/Beziehungen",
     "02_People/Familie",
-    "02_People/Freunde",
-    "02_Places/Reiseorte",
-    "02_Places",
-    "Untitled.canvas",
-    "03_Skills/Gaming",
-    "02_Places/Lebensorte"
+    "02_People/Freunde"
   ]
 }
