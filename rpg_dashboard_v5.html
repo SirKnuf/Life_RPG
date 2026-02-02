@@ -188,14 +188,21 @@
     }
 
     async function loadDashboardData() {
-        if (window.location.protocol.startsWith('http')) {
+        const candidatePaths = [
+            '08_System/life_rpg_data_v5.json',
+            './08_System/life_rpg_data_v5.json',
+            '../08_System/life_rpg_data_v5.json'
+        ];
+        for (const path of candidatePaths) {
             try {
-                const response = await fetch('08_System/life_rpg_data_v5.json', { cache: 'no-store' });
+                const url = new URL(path, window.location.href);
+                url.searchParams.set('v', Date.now().toString());
+                const response = await fetch(url.toString(), { cache: 'no-store' });
                 if (response.ok) {
                     return await response.json();
                 }
             } catch (error) {
-                console.warn('Konnte JSON nicht laden, nutze MOCK_DATA.', error);
+                console.warn(`Konnte JSON nicht laden (${path}), nutze Fallback.`, error);
             }
         }
         return MOCK_DATA;
