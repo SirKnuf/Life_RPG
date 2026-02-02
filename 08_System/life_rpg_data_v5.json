@@ -1,56 +1,49 @@
 {
-  "total_xp": 1096.44,
+  "total_xp": 1104.44,
   "skill_xp_gained": {
-    "Intellektuell": 397.0,
-    "Physisch": 76.78,
-    "Finanziell": 176.0,
+    "Intellektuell": 398.0,
     "Sozial": 234.67,
+    "Physisch": 76.78,
+    "Allgemein": 138.0,
     "Sprachlich": 7.5,
-    "Spirituell": 73.5,
-    "Allgemein": 131.0
+    "Finanziell": 176.0,
+    "Spirituell": 73.5
   },
   "run_metrics": {
     "total_km": 19.2,
     "total_minutes": 92.8
   },
   "sallyup_best_time": 2.5,
-  "last_processed_date": "2026-02-01",
+  "last_processed_date": "2026-02-02",
   "open_tasks": {
     "Intellektuell": [],
-    "Physisch": [],
-    "Finanziell": [],
     "Sozial": [],
-    "Sprachlich": [],
-    "Spirituell": [],
+    "Physisch": [],
     "Allgemein": [
       "B\u00fcrgerb\u00fcro (f\u00fchrungszeugnis und einwohnermeldeamt)",
-      "Quanten Blatt 14 m\u00fcndlich",
-      "Astrophysik Vorlesungen (nach 29.01)",
-      "Kapitel in PKM oder Kapitel in Quanten",
-      "\u00dcbungsblatt Quanten",
-      "\u00dcbungsblatt PKM"
-    ]
+      "Astrophysik Vorlesungen (nach 29.01)"
+    ],
+    "Sprachlich": [],
+    "Finanziell": [],
+    "Spirituell": []
   },
   "latest_daily_stats": {
-    "total_xp_today": 14.680555555555555,
-    "tasks_today": 6,
-    "minutes_today": 262.0833333333333,
+    "total_xp_today": 8.0,
+    "tasks_today": 3,
+    "minutes_today": 150.0,
     "daily_breakdown": {
-      "Intellektuell": 8.0,
-      "Physisch": 3.6805555555555554,
-      "Finanziell": 0.0,
+      "Intellektuell": 1.0,
       "Sozial": 0.0,
+      "Physisch": 0.0,
+      "Allgemein": 7.0,
       "Sprachlich": 0.0,
-      "Spirituell": 0.0,
-      "Allgemein": 3.0
+      "Finanziell": 0.0,
+      "Spirituell": 0.0
     },
     "completed_today": [
-      "Quanten Aufgabe schriftlich (1h 30m) #study ",
-      "W\u00e4sche (1p) #task ",
-      "W\u00e4sche abgenommen (1p) #task ",
-      "Omelette gekocht (1p) #cooking ",
-      "Quanten Aufgabe m\u00fcndlich (2h 30m) #study",
-      "Um die Promenade gelaufen (4.7km) (22:05min) #run"
+      "W\u00e4sche und Einkauf (3p) #task ",
+      "Update von der App und Dashboard (2h 0m) #project ",
+      "Wiederholung von PKM Vorlesung 1 (30m) #PKMVL "
     ]
   }
 }
