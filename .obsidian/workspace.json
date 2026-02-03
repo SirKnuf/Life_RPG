@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "07_Journal/2026-02/2026-02-02.md",
+                "file": "01_Core/XP_Calculation.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "2026-02-02"
+              "title": "XP_Calculation"
             }
           }
         ]
@@ -171,12 +171,12 @@
   },
   "active": "1e47224f96fc7680",
   "lastOpenFiles": [
+    "07_Journal/2026-02/2026-02-02.md",
+    "01_Core/XP_Calculation.md",
     "Code/obsidian_rpg_sync_v5.py.rej",
     "rpg_dashboard_v5.html.rej",
     "patch.txt",
     "07_Journal/2026-02/2026-02-01.md",
-    "07_Journal/2026-02/2026-02-02.md",
-    "03_Skills/Sprachlich/Spanisch A2.md",
-    "01_Core/XP_Calculation.md"
+    "03_Skills/Sprachlich/Spanisch A2.md"
   ]
 }

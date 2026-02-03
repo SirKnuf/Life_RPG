@@ -1,13 +1,13 @@
 {
   "total_xp": 1111.44,
   "skill_xp_gained": {
-    "Sozial": 234.67,
+    "Intellektuell": 401.0,
     "Finanziell": 176.0,
     "Sprachlich": 7.5,
+    "Sozial": 234.67,
+    "Allgemein": 142.0,
     "Spirituell": 73.5,
-    "Intellektuell": 401.0,
-    "Physisch": 76.78,
-    "Allgemein": 142.0
+    "Physisch": 76.78
   },
   "run_metrics": {
     "total_km": 19.2,
@@ -16,29 +16,29 @@
   "sallyup_best_time": 2.5,
   "last_processed_date": "2026-02-02",
   "open_tasks": {
-    "Sozial": [],
+    "Intellektuell": [],
     "Finanziell": [],
     "Sprachlich": [],
-    "Spirituell": [],
-    "Intellektuell": [],
-    "Physisch": [],
+    "Sozial": [],
     "Allgemein": [
       "B\u00fcrgerb\u00fcro (f\u00fchrungszeugnis und einwohnermeldeamt)",
       "Astrophysik Vorlesungen (nach 29.01)"
-    ]
+    ],
+    "Spirituell": [],
+    "Physisch": []
   },
   "latest_daily_stats": {
     "total_xp_today": 15.0,
     "tasks_today": 3,
     "minutes_today": 360.0,
     "daily_breakdown": {
-      "Sozial": 0.0,
+      "Intellektuell": 4.0,
       "Finanziell": 0.0,
       "Sprachlich": 0.0,
+      "Sozial": 0.0,
+      "Allgemein": 11.0,
       "Spirituell": 0.0,
-      "Intellektuell": 4.0,
-      "Physisch": 0.0,
-      "Allgemein": 11.0
+      "Physisch": 0.0
     },
     "completed_today": [
       "Einkauf und W\u00e4sche (3p) #task ",
