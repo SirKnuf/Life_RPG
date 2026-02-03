@@ -7,6 +7,10 @@ import os, json, datetime, re, sys
 RULES_PATH = '01_Core/XP_Calculation.md'
 TODO_LIST_PATH = '01_Core/todo_list.md'
 JSON_CACHE_PATH = '08_System/life_rpg_data_v5.json' 
+HTML_DASHBOARD_PATH = 'rpg_dashboard_v5.html'
+START_MARKER = '// <START_JSON_INJECTION>'
+END_MARKER = '// <END_JSON_INJECTION>'
+JSON_INDENT_SPACES = 4
 JOURNAL_DIR_NAME = '07_Journal'
 BASE_XP_UNIT_MINUTES = 30 
 XP_POINTS_MAPPING = {"1p": 1.0, "3p": 3.0, "5p": 5.0, "8p": 8.0}
@@ -199,11 +203,40 @@ def scan_vault(vault_path):
     
     with open(os.path.join(vault_path, JSON_CACHE_PATH), "w", encoding="utf-8") as f:
         json.dump(output, f, indent=2)
+
+    update_dashboard_html(vault_path, output)
     
     print(f"--- Full Sync v5 ---")
     print(f"Heute erledigt: {stats['latest_daily_stats']['tasks_today']} Aufgaben")
     print(f"Laufen Gesamt: {output['run_metrics']['total_km']} km")
     print(f"SallyUp Bestzeit: {output['sallyup_best_time']} min")
+
+def update_dashboard_html(vault_path, data):
+    html_full_path = os.path.join(vault_path, HTML_DASHBOARD_PATH)
+    if not os.path.exists(html_full_path):
+        print(f"[WARN] Dashboard-HTML nicht gefunden: {html_full_path}")
+        return
+
+    try:
+        with open(html_full_path, "r", encoding="utf-8") as f:
+            html_content = f.read()
+
+        json_string = json.dumps(data, indent=JSON_INDENT_SPACES, ensure_ascii=False)
+        new_data_block = f"{START_MARKER}\n    const MOCK_DATA = {json_string};\n{END_MARKER}"
+
+        start_index = html_content.index(START_MARKER)
+        end_index = html_content.index(END_MARKER) + len(END_MARKER)
+
+        new_html_content = html_content[:start_index].rstrip() + "\n" + new_data_block + html_content[end_index:]
+
+        with open(html_full_path, "w", encoding="utf-8") as f:
+            f.write(new_html_content)
+
+        print("[DEBUG] Dashboard-HTML mit aktuellen JSON-Daten aktualisiert.")
+    except ValueError:
+        print(f"[WARN] Marker für JSON-Injektion in {HTML_DASHBOARD_PATH} nicht gefunden.")
+    except Exception as e:
+        print(f"[WARN] Dashboard-Update fehlgeschlagen: {e}")
 
 if __name__ == "__main__":
     scan_vault(sys.argv[1] if len(sys.argv) > 1 else ".")
