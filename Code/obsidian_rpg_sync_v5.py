@@ -19,6 +19,7 @@ XP_POINTS_MAPPING = {"1p": 1.0, "3p": 3.0, "5p": 5.0, "8p": 8.0}
 def load_rpg_rules(vault_path):
     rules_file = os.path.join(vault_path, RULES_PATH)
     rules = {}
+    goal_rules = {}
     categories = set(["Allgemein", "Finanziell", "Intellektuell", "Spirituell", "Physisch", "Sozial", "Sprachlich"])
     if os.path.exists(rules_file):
         with open(rules_file, "r", encoding="utf-8") as f:
@@ -38,7 +39,18 @@ def load_rpg_rules(vault_path):
                             "metric": metric
                         }
                         categories.add(cat)
-    return rules, list(categories)
+                        if len(parts) >= 5 and parts[3].lower() == "ziel":
+                            goal_spec = parts[4]
+                            if goal_spec.startswith("@") and "," in goal_spec:
+                                goal_name, goal_target = goal_spec[1:].split(",", 1)
+                                try:
+                                    goal_rules[tag] = {
+                                        "name": goal_name.strip(),
+                                        "target": float(goal_target.strip())
+                                    }
+                                except ValueError:
+                                    pass
+    return rules, list(categories), goal_rules
 
 # --- 2. PARSE-FUNKTIONEN (Robust) ---
 def parse_duration(task_text):
@@ -83,7 +95,7 @@ def get_task_category(task_text, tag_rules):
 
 # --- 3. KERN-SCAN (Full Scan Modus) ---
 def scan_vault(vault_path):
-    TAG_RULES, SKILL_CATEGORIES = load_rpg_rules(vault_path)
+    TAG_RULES, SKILL_CATEGORIES, GOAL_RULES = load_rpg_rules(vault_path)
     
     # Variablen fÃ¼r den Full-Scan (Reset bei jedem Start)
     total_xp = 0.0
@@ -157,19 +169,24 @@ def scan_vault(vault_path):
                             sallyup_best_min = s_time
                             print(f"[DEBUG] Neuer All-Time Rekord gefunden: {s_time} Min")
 
-                for tag, rule in TAG_RULES.items():
-                    if rule.get("mode") != "Ziel":
-                        continue
-                    if tag not in task.lower():
-                        continue
-                    goal_name, goal_total = parse_goal_reference(task, tag)
-                    if not goal_name:
-                        continue
-                    goal_data = goal_progress.setdefault(goal_name, {"completed": 0, "total": None})
-                    goal_data["completed"] += 1
-                    if goal_total is not None:
-                        goal_data["total"] = goal_total
-
+                for tag, goal in GOAL_RULES.items():
+                    if tag in task.lower():
+                        match = re.search(r'@(?P<name>[\w\-]+)\((?P<count>\d+(?:\.\d+)?)\)', task, re.IGNORECASE)
+                        if match:
+                            count = float(match.group('count'))
+                            goal_name = match.group('name')
+                        else:
+                            count = 1.0
+                            goal_name = goal["name"]
+                        if goal_name not in goal_progress:
+                            goal_progress[goal_name] = {
+                                "title": goal_name,
+                                "current": 0.0,
+                                "target": goal["target"],
+                                "unit": "Lektionen"
+                            }
+                        goal_progress[goal_name]["current"] += count
+                
                 # Heutige Statistik
                 if is_latest:
                     stats["latest_daily_stats"]["tasks_today"] += 1
@@ -198,7 +215,7 @@ def scan_vault(vault_path):
         "last_processed_date": stats["latest_date"],
         "open_tasks": stats["open_tasks"],
         "latest_daily_stats": stats["latest_daily_stats"],
-        "goal_progress": goal_progress
+        "goal_progress": list(goal_progress.values())
     }
     
     with open(os.path.join(vault_path, JSON_CACHE_PATH), "w", encoding="utf-8") as f:
