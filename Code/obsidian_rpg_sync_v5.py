@@ -7,6 +7,10 @@ import os, json, datetime, re, sys
 RULES_PATH = '01_Core/XP_Calculation.md'
 TODO_LIST_PATH = '01_Core/todo_list.md'
 JSON_CACHE_PATH = '08_System/life_rpg_data_v5.json' 
+HTML_DASHBOARD_PATH = 'rpg_dashboard_v5.html'
+START_MARKER = '// <START_JSON_INJECTION>'
+END_MARKER = '// <END_JSON_INJECTION>'
+JSON_INDENT_SPACES = 4
 JOURNAL_DIR_NAME = '07_Journal'
 BASE_XP_UNIT_MINUTES = 30 
 XP_POINTS_MAPPING = {"1p": 1.0, "3p": 3.0, "5p": 5.0, "8p": 8.0}
@@ -15,6 +19,7 @@ XP_POINTS_MAPPING = {"1p": 1.0, "3p": 3.0, "5p": 5.0, "8p": 8.0}
 def load_rpg_rules(vault_path):
     rules_file = os.path.join(vault_path, RULES_PATH)
     rules = {}
+    goal_rules = {}
     categories = set(["Allgemein", "Finanziell", "Intellektuell", "Spirituell", "Physisch", "Sozial", "Sprachlich"])
     if os.path.exists(rules_file):
         with open(rules_file, "r", encoding="utf-8") as f:
@@ -27,7 +32,18 @@ def load_rpg_rules(vault_path):
                         except: xp = 0.5
                         rules[tag] = {"category": cat, "base_xp": xp}
                         categories.add(cat)
-    return rules, list(categories)
+                        if len(parts) >= 5 and parts[3].lower() == "ziel":
+                            goal_spec = parts[4]
+                            if goal_spec.startswith("@") and "," in goal_spec:
+                                goal_name, goal_target = goal_spec[1:].split(",", 1)
+                                try:
+                                    goal_rules[tag] = {
+                                        "name": goal_name.strip(),
+                                        "target": float(goal_target.strip())
+                                    }
+                                except ValueError:
+                                    pass
+    return rules, list(categories), goal_rules
 
 # --- 2. PARSE-FUNKTIONEN (Robust) ---
 def parse_duration(task_text):
@@ -59,7 +75,7 @@ def get_task_category(task_text, tag_rules):
 
 # --- 3. KERN-SCAN (Full Scan Modus) ---
 def scan_vault(vault_path):
-    TAG_RULES, SKILL_CATEGORIES = load_rpg_rules(vault_path)
+    TAG_RULES, SKILL_CATEGORIES, GOAL_RULES = load_rpg_rules(vault_path)
     
     # Variablen für den Full-Scan (Reset bei jedem Start)
     total_xp = 0.0
@@ -67,6 +83,7 @@ def scan_vault(vault_path):
     run_total_km = 0.0
     run_total_min = 0.0
     sallyup_best_min = 0.0
+    goal_progress = {}
     
     stats = {
         "open_tasks": {cat: [] for cat in SKILL_CATEGORIES},
@@ -124,6 +141,24 @@ def scan_vault(vault_path):
                         if s_time > sallyup_best_min:
                             sallyup_best_min = s_time
                             print(f"[DEBUG] Neuer All-Time Rekord gefunden: {s_time} Min")
+
+                for tag, goal in GOAL_RULES.items():
+                    if tag in task.lower():
+                        match = re.search(r'@(?P<name>[\w\-]+)\((?P<count>\d+(?:\.\d+)?)\)', task, re.IGNORECASE)
+                        if match:
+                            count = float(match.group('count'))
+                            goal_name = match.group('name')
+                        else:
+                            count = 1.0
+                            goal_name = goal["name"]
+                        if goal_name not in goal_progress:
+                            goal_progress[goal_name] = {
+                                "title": goal_name,
+                                "current": 0.0,
+                                "target": goal["target"],
+                                "unit": "Lektionen"
+                            }
+                        goal_progress[goal_name]["current"] += count
                 
                 # Heutige Statistik
                 if is_latest:
@@ -152,16 +187,46 @@ def scan_vault(vault_path):
         "sallyup_best_time": sallyup_best_min,
         "last_processed_date": stats["latest_date"],
         "open_tasks": stats["open_tasks"],
-        "latest_daily_stats": stats["latest_daily_stats"]
+        "latest_daily_stats": stats["latest_daily_stats"],
+        "goal_progress": list(goal_progress.values())
     }
     
     with open(os.path.join(vault_path, JSON_CACHE_PATH), "w", encoding="utf-8") as f:
         json.dump(output, f, indent=2)
+
+    update_dashboard_html(vault_path, output)
     
     print(f"--- Full Sync v5 ---")
     print(f"Heute erledigt: {stats['latest_daily_stats']['tasks_today']} Aufgaben")
     print(f"Laufen Gesamt: {output['run_metrics']['total_km']} km")
     print(f"SallyUp Bestzeit: {output['sallyup_best_time']} min")
+
+def update_dashboard_html(vault_path, data):
+    html_full_path = os.path.join(vault_path, HTML_DASHBOARD_PATH)
+    if not os.path.exists(html_full_path):
+        print(f"[WARN] Dashboard-HTML nicht gefunden: {html_full_path}")
+        return
+
+    try:
+        with open(html_full_path, "r", encoding="utf-8") as f:
+            html_content = f.read()
+
+        json_string = json.dumps(data, indent=JSON_INDENT_SPACES, ensure_ascii=False)
+        new_data_block = f"{START_MARKER}\n    const MOCK_DATA = {json_string};\n{END_MARKER}"
+
+        start_index = html_content.index(START_MARKER)
+        end_index = html_content.index(END_MARKER) + len(END_MARKER)
+
+        new_html_content = html_content[:start_index].rstrip() + "\n" + new_data_block + html_content[end_index:]
+
+        with open(html_full_path, "w", encoding="utf-8") as f:
+            f.write(new_html_content)
+
+        print("[DEBUG] Dashboard-HTML mit aktuellen JSON-Daten aktualisiert.")
+    except ValueError:
+        print(f"[WARN] Marker für JSON-Injektion in {HTML_DASHBOARD_PATH} nicht gefunden.")
+    except Exception as e:
+        print(f"[WARN] Dashboard-Update fehlgeschlagen: {e}")
 
 if __name__ == "__main__":
     scan_vault(sys.argv[1] if len(sys.argv) > 1 else ".")
