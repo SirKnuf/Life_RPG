@@ -74,6 +74,11 @@
             <div id="skill-progress-list" class="space-y-4 scroll-area pr-2"></div>
         </section>
 
+        <section class="stat-card p-5 rounded-lg">
+            <h2 class="text-xl font-bold text-rpg-secondary mb-4 border-b border-gray-600 pb-2">Individuelle Ziel-Fortschritte</h2>
+            <div id="goal-progress-list" class="space-y-4"></div>
+        </section>
+
         <section class="stat-card p-5 rounded-lg border-emerald-500">
             <h2 class="text-xl font-bold text-rpg-primary mb-4 border-b border-gray-600 pb-2">Aktiver Tag</h2>
             <div id="daily-breakdown-list" class="space-y-4"></div>
@@ -159,6 +164,21 @@
         </div>`;
     }
 
+    function createGoalBar(title, current, target, unit) {
+        const safeTarget = target > 0 ? target : 1;
+        const percent = Math.min((current / safeTarget) * 100, 100);
+        const unitLabel = unit ? ` ${unit}` : '';
+        return `<div>
+            <div class="flex justify-between text-xs mb-1">
+                <span class="font-bold text-gray-300 uppercase">${title}</span>
+                <span class="text-rpg-secondary font-mono">${current}${unitLabel} / ${target}${unitLabel}</span>
+            </div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" style="width: ${percent}%; background-color: var(--rpg-secondary);"></div>
+            </div>
+        </div>`;
+    }
+
     async function loadDashboardData() {
         try {
             const response = await fetch('08_System/life_rpg_data_v5.json', { cache: 'no-store' });
@@ -213,6 +233,24 @@
         Object.entries(sData).sort(([,a],[,b]) => b-a).forEach(([n, x]) => {
             if(x > 0) sList.innerHTML += createBar(n, x, (x/maxS)*100, 'var(--rpg-primary)');
         });
+
+        // Individuelle Ziele
+        const goalList = document.getElementById('goal-progress-list');
+        const goalsRaw = stats.goal_progress || stats.individual_goals || [];
+        const goals = Array.isArray(goalsRaw)
+            ? goalsRaw
+            : Object.entries(goalsRaw).map(([title, goal]) => ({ title, ...goal }));
+        if (goals.length === 0) {
+            goalList.innerHTML = "<p class='text-gray-500'>Keine individuellen Ziele hinterlegt.</p>";
+        } else {
+            goals.forEach(goal => {
+                const title = goal.title || goal.name || "Ziel";
+                const current = Number(goal.current ?? goal.progress ?? 0);
+                const target = Number(goal.target ?? goal.goal ?? 0);
+                const unit = goal.unit || "";
+                goalList.innerHTML += createGoalBar(title, current, target, unit);
+            });
+        }
 
         // 2. Spalte: Offene Quests
         const oList = document.getElementById('open-tasks-list');
