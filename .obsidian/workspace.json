@@ -1,32 +1,24 @@
 {
   "main": {
-    "id": "23c513845a6e284d",
+    "id": "eecdf97351c25794",
     "type": "split",
     "children": [
       {
-        "id": "dca60ec5dedb41e4",
+        "id": "80835cfc7792d2e4",
         "type": "tabs",
         "children": [
           {
-            "id": "1e1a9860d66e50f0",
+            "id": "1e47224f96fc7680",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-<<<<<<< Updated upstream
                 "file": "07_Journal/2026-02/2026-02-02.md",
-=======
-                "file": "01_Core/XP_Calculation.md",
->>>>>>> Stashed changes
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-<<<<<<< Updated upstream
               "title": "2026-02-02"
-=======
-              "title": "XP_Calculation"
->>>>>>> Stashed changes
             }
           }
         ]
@@ -35,15 +27,15 @@
     "direction": "vertical"
   },
   "left": {
-    "id": "84f78de7cf30ab96",
+    "id": "85c1c00a45928ceb",
     "type": "split",
     "children": [
       {
-        "id": "16c3b7e8aaa3c975",
+        "id": "92bbf1367bcb26fd",
         "type": "tabs",
         "children": [
           {
-            "id": "2a14a5a6ab3480b5",
+            "id": "48541098f03092e1",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -56,7 +48,7 @@
             }
           },
           {
-            "id": "f1d087c69db09e29",
+            "id": "537f4a6edd8dd678",
             "type": "leaf",
             "state": {
               "type": "search",
@@ -73,7 +65,7 @@
             }
           },
           {
-            "id": "59ce6fe7ed8cb602",
+            "id": "eaf960766e0b9800",
             "type": "leaf",
             "state": {
               "type": "bookmarks",
@@ -86,23 +78,23 @@
       }
     ],
     "direction": "horizontal",
-    "width": 302.5
+    "width": 300
   },
   "right": {
-    "id": "652e363b69c3aaa0",
+    "id": "7b8e42f2e4db1180",
     "type": "split",
     "children": [
       {
-        "id": "84d968732a41651f",
+        "id": "b619babd92860690",
         "type": "tabs",
         "children": [
           {
-            "id": "cef25fa4150f9426",
+            "id": "8dbfc7c367ee1e5b",
             "type": "leaf",
             "state": {
               "type": "backlink",
               "state": {
-                "file": "04_Emotions/Moodlog/Glück.md",
+                "file": "07_Journal/2026-02/2026-02-02.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -112,25 +104,25 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for Glück"
+              "title": "Backlinks for 2026-02-02"
             }
           },
           {
-            "id": "b3cc854587110cd8",
+            "id": "69f4ac2da94aafd0",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "04_Emotions/Moodlog/Glück.md",
+                "file": "07_Journal/2026-02/2026-02-02.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from Glück"
+              "title": "Outgoing links from 2026-02-02"
             }
           },
           {
-            "id": "5109f12c3b1fccd7",
+            "id": "455b92a8428ddb1a",
             "type": "leaf",
             "state": {
               "type": "tag",
@@ -145,18 +137,18 @@
             }
           },
           {
-            "id": "d7acfc34c3aab44e",
+            "id": "349e701badc54c8a",
             "type": "leaf",
             "state": {
               "type": "outline",
               "state": {
-                "file": "04_Emotions/Moodlog/Glück.md",
+                "file": "07_Journal/2026-02/2026-02-02.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Glück"
+              "title": "Outline of 2026-02-02"
             }
           }
         ]
@@ -177,55 +169,14 @@
       "bases:Create new base": false
     }
   },
-  "active": "1e1a9860d66e50f0",
+  "active": "1e47224f96fc7680",
   "lastOpenFiles": [
-<<<<<<< Updated upstream
-=======
-    "07_Journal/2026-02/2026-02-02.md",
->>>>>>> Stashed changes
-    "01_Core/XP_Calculation.md",
-    "patch",
-    "codex.",
-    "codex.patch",
-    "exit",
-    "01_Core/todo_list.md",
+    "Code/obsidian_rpg_sync_v5.py.rej",
+    "rpg_dashboard_v5.html.rej",
+    "patch.txt",
     "07_Journal/2026-02/2026-02-01.md",
-<<<<<<< Updated upstream
     "07_Journal/2026-02/2026-02-02.md",
-    "07_Journal/2026-01/2026-01-31.md",
-=======
-    "07_Journal/2026-01/2026-01-31.md",
-    "Untitled.canvas",
->>>>>>> Stashed changes
-    "07_Journal/2026-02",
-    "07_Journal/2026-01/2026-01-30.md",
-    "07_Journal/2026-01/2026-01-29.md",
-    "01_Core/MoodLog Template.md",
-    "07_Journal/2026-01/2026-01-28.md",
-    "07_Journal/2026-01/2026-01-27.md",
-    "07_Journal/2026-01/2026-01-26.md",
-    "07_Journal/2026-01/2026-01-25.md",
-    "07_Journal/2026-01/2026-01-24.md",
-    "02_People/Freunde/Paul.md",
-    "02_People/Familie/Christina.md",
-    "02_People/Familie/Esau.md",
-    "02_People/Familie/Lena.md",
-    "02_People/Familie/Michael.md",
-    "02_People/Familie/Mama.md",
-    "02_People/Familie/Oma Erna.md",
-    "02_People/Familie/Papa.md",
-    "02_People/Familie/Pris.md",
-    "07_Journal/2026-01/2026-01-23.md",
-    "07_Journal/2026-01/2026-01-22.md",
-    "07_Journal/2026-01/2026-01-21.md",
-<<<<<<< Updated upstream
-    "01_Core/Journal Template.md",
-=======
->>>>>>> Stashed changes
-    "08_System/Datapoints/Skills",
-    "08_System/Datapoints",
-    "02_People/Beziehungen",
-    "02_People/Familie",
-    "02_People/Freunde"
+    "03_Skills/Sprachlich/Spanisch A2.md",
+    "01_Core/XP_Calculation.md"
   ]
 }

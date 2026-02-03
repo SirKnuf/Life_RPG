@@ -30,7 +30,14 @@ def load_rpg_rules(vault_path):
                         tag, cat = parts[0].lower(), parts[1]
                         try: xp = float(parts[2])
                         except: xp = 0.5
-                        rules[tag] = {"category": cat, "base_xp": xp}
+                        mode = parts[3] if len(parts) > 3 else "Zeit"
+                        metric = parts[4] if len(parts) > 4 else "-"
+                        rules[tag] = {
+                            "category": cat,
+                            "base_xp": xp,
+                            "mode": mode,
+                            "metric": metric
+                        }
                         categories.add(cat)
                         if len(parts) >= 5 and parts[3].lower() == "ziel":
                             goal_spec = parts[4]
@@ -63,9 +70,22 @@ def parse_sallyup_time(task_text):
     # Erkennt (3:40 min) oder (3:40min)
     match = re.search(r'\((?P<m>\d+):(?P<s>\d{2})\s*min\)', task_text, re.IGNORECASE)
     if match:
-        # Rückgabe als Float für den Vergleich (z.B. 3.66 Minuten)
+        # RÃ¼ckgabe als Float fÃ¼r den Vergleich (z.B. 3.66 Minuten)
         return int(match.group('m')) + (int(match.group('s')) / 60.0)
     return 0.0
+
+def parse_goal_reference(task_text, tag):
+    goal_match = re.search(rf'{re.escape(tag)}@([^#]+?)(?=\s#|$)', task_text, re.IGNORECASE)
+    if not goal_match:
+        return None, None
+    raw_name = goal_match.group(1).strip()
+    count_match = re.search(r'^(?P<name>.*?)[\(\[](?P<count>\d+)[\)\]]$', raw_name)
+    if count_match:
+        return count_match.group('name').strip(), int(count_match.group('count'))
+    count_match = re.search(r'^(?P<name>.*?)[,;]\s*(?P<count>\d+)$', raw_name)
+    if count_match:
+        return count_match.group('name').strip(), int(count_match.group('count'))
+    return raw_name, None
 
 def get_task_category(task_text, tag_rules):
     for tag, rule in tag_rules.items():
@@ -77,7 +97,7 @@ def get_task_category(task_text, tag_rules):
 def scan_vault(vault_path):
     TAG_RULES, SKILL_CATEGORIES, GOAL_RULES = load_rpg_rules(vault_path)
     
-    # Variablen für den Full-Scan (Reset bei jedem Start)
+    # Variablen fÃ¼r den Full-Scan (Reset bei jedem Start)
     total_xp = 0.0
     skill_xp = {cat: 0.0 for cat in SKILL_CATEGORIES}
     run_total_km = 0.0
@@ -118,6 +138,11 @@ def scan_vault(vault_path):
                 xp_val = XP_POINTS_MAPPING.get(f"{xp_match.group('p')}p", 0.0) if xp_match else 0.0
                 dur = parse_duration(task)
                 cat = get_task_category(task, TAG_RULES)
+                matched_rule = None
+                for tag, rule in TAG_RULES.items():
+                    if tag in task.lower():
+                        matched_rule = rule
+                        break
 
                 # Zeitbasierte XP
                 if xp_val == 0.0 and dur > 0:
@@ -125,7 +150,9 @@ def scan_vault(vault_path):
                         if tag in task.lower():
                             xp_val = (dur / BASE_XP_UNIT_MINUTES) * rule["base_xp"]
                             break
-                
+                if xp_val == 0.0 and matched_rule and matched_rule.get("mode") == "Ziel":
+                    xp_val = matched_rule["base_xp"]
+
                 # Kumulative Metriken
                 total_xp += xp_val
                 if cat in skill_xp: skill_xp[cat] += xp_val
