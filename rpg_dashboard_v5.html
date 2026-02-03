@@ -159,8 +159,21 @@
         </div>`;
     }
 
+    async function loadDashboardData() {
+        try {
+            const response = await fetch('08_System/life_rpg_data_v5.json', { cache: 'no-store' });
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+            return await response.json();
+        } catch (error) {
+            console.warn('Dashboard nutzt eingebettete Daten (Fallback).', error);
+            return MOCK_DATA;
+        }
+    }
+
     async function renderDashboard() {
-        const stats = MOCK_DATA;
+        const stats = await loadDashboardData();
         
         // Header & Status
         document.getElementById('latest-sync-date').textContent = `Synchro: ${stats.last_processed_date || 'N/A'}`;
