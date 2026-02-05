@@ -1,6 +1,6 @@
 | **Task-Eintrag im Journal**                        | **Skill-Kategorie** | **Basis-XP pro 30 Minuten** |
 | -------------------------------------------------- | ------------------- | --------------------------- |
-| `- [x] Mit [[Mia]] geredet (1h 10m) #social`       | Sozial              | 2.5                         |
+| `- [x] Mit ... geredet (1h 10m) #social`           | Sozial              | 2.5                         |
 | `- [x] Neuen Blog-Entwurf geschrieben (2h) #study` | Intellektuell       | 3.0                         |
 | `- [x] Abendessen gekocht (45m) #task`             | Allgemein           | 0.5                         |
 
@@ -45,3 +45,8 @@ Die neue Logik in V4 sieht vor:
 - Die finale **Gesamt-XP** ist die Summe aller zeitbasierten und punktbasierten XP.
     
 - Die JSON-Daten speichern nun beide Metriken (Minuten und Aufgaben-XP) pro Skill getrennt, um sie im Dashboard dual darstellen zu können.
+
+# Ab 2026-02-03
+
+- [x] Wiederholung Vorlesungen PKM (2h 0m) #PKMVL@PKM(3) 
+für individuelle Ziele
