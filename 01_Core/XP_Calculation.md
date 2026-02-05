@@ -22,8 +22,7 @@
 | #metime         | Spirituell    | 1.0      | Zeit   | -                   |
 | #language       | Sprachlich    | 3.0      | Zeit   | -                   |
 | #selfcare       | Spirituell    | 1.0      | Zeit   | -                   |
-| #PKMVL          | Intellektuell | 1.0      | Ziel   | @PKM,30             |
-| #QuantenVL      | Intellektuell | 1.0      | Ziel   | @Quanten,77         |
-| #PKMAufgabe     | Intellektuell | 1.0      | Ziel   | @PKMAufgaben,23     |
-| #QuantenAufgabe | Intellektuell | 1.0      | Ziel   | @QuantenAufgaben,33 |
-
+| #PKMVL          | Intellektuell | 1.0      | Ziel   | @PKM,30,2026-12-31             |
+| #QuantenVL      | Intellektuell | 1.0      | Ziel   | @Quanten,77,2026-12-31         |
+| #PKMAufgabe     | Intellektuell | 1.0      | Ziel   | @PKMAufgaben,23,2026-12-31     |
+| #QuantenAufgabe | Intellektuell | 1.0      | Ziel   | @QuantenAufgaben,33,2026-12-31 |

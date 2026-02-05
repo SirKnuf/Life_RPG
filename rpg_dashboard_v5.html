@@ -12,6 +12,8 @@
         .progress-bar-container { height: 12px; background-color: #4b5563; border-radius: 6px; overflow: hidden; margin-top: 5px; }
         .progress-bar { height: 100%; transition: width 0.5s ease-in-out; }
         .scroll-area { height: 320px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--rpg-primary) transparent; }
+        summary { cursor: pointer; }
+        summary::-webkit-details-marker { color: var(--rpg-secondary); }
     </style>
 </head>
 <body>
@@ -69,32 +71,32 @@
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
     
     <div class="lg:col-span-8 space-y-8">
-        <section class="stat-card p-5 rounded-lg">
-            <h2 class="text-xl font-bold text-rpg-secondary mb-4 border-b border-gray-600 pb-2">Skill-Fortschritt (Gesamt)</h2>
+        <details class="stat-card p-5 rounded-lg" open>
+            <summary class="text-xl font-bold text-rpg-secondary mb-4 border-b border-gray-600 pb-2">Skill-Fortschritt (Gesamt)</summary>
             <div id="skill-progress-list" class="space-y-4 scroll-area pr-2"></div>
-        </section>
+        </details>
 
-        <section class="stat-card p-5 rounded-lg">
-            <h2 class="text-xl font-bold text-rpg-secondary mb-4 border-b border-gray-600 pb-2">Individuelle Ziel-Fortschritte</h2>
+        <details class="stat-card p-5 rounded-lg">
+            <summary class="text-xl font-bold text-rpg-secondary mb-4 border-b border-gray-600 pb-2">Individuelle Ziel-Fortschritte</summary>
             <div id="goal-progress-list" class="space-y-4"></div>
-        </section>
+        </details>
 
-        <section class="stat-card p-5 rounded-lg border-emerald-500">
-            <h2 class="text-xl font-bold text-rpg-primary mb-4 border-b border-gray-600 pb-2">Aktiver Tag</h2>
+        <details class="stat-card p-5 rounded-lg border-emerald-500">
+            <summary class="text-xl font-bold text-rpg-primary mb-4 border-b border-gray-600 pb-2">Aktiver Tag</summary>
             <div id="daily-breakdown-list" class="space-y-4"></div>
-        </section>
+        </details>
     </div>
 
     <div class="lg:col-span-4 space-y-8">
-        <section class="stat-card p-5 rounded-lg">
-            <h2 class="text-xl font-bold text-rpg-secondary mb-4 border-b border-gray-600 pb-2">Offene Quests</h2>
+        <details class="stat-card p-5 rounded-lg">
+            <summary class="text-xl font-bold text-rpg-secondary mb-4 border-b border-gray-600 pb-2">Offene Quests</summary>
             <div id="open-tasks-list" class="space-y-2 scroll-area pr-2"></div>
-        </section>
+        </details>
 
-        <section class="stat-card p-5 rounded-lg border-emerald-500">
-            <h2 class="text-xl font-bold text-rpg-primary mb-4 border-b border-gray-600 pb-2">Heute abgeschlossen</h2>
+        <details class="stat-card p-5 rounded-lg border-emerald-500">
+            <summary class="text-xl font-bold text-rpg-primary mb-4 border-b border-gray-600 pb-2">Heute abgeschlossen</summary>
             <div id="completed-today-list" class="space-y-2 scroll-area pr-2"></div>
-        </section>
+        </details>
     </div>
 </div>
 </div>
@@ -153,25 +155,41 @@
             "title": "PKM",
             "current": 13.0,
             "target": 30.0,
-            "unit": "Lektionen"
+            "unit": "Lektionen",
+            "end_date": "2026-12-31",
+            "remaining": 17.0,
+            "days_remaining": 330,
+            "daily_workload": 0.05
         },
         {
             "title": "QuantenAufgaben",
             "current": 4.0,
             "target": 33.0,
-            "unit": "Lektionen"
+            "unit": "Lektionen",
+            "end_date": "2026-12-31",
+            "remaining": 29.0,
+            "days_remaining": 330,
+            "daily_workload": 0.09
         },
         {
             "title": "Quanten",
             "current": 10.0,
             "target": 77.0,
-            "unit": "Lektionen"
+            "unit": "Lektionen",
+            "end_date": "2026-12-31",
+            "remaining": 67.0,
+            "days_remaining": 330,
+            "daily_workload": 0.2
         },
         {
             "title": "PKMAufgaben",
             "current": 13.0,
             "target": 23.0,
-            "unit": "Lektionen"
+            "unit": "Lektionen",
+            "end_date": "2026-12-31",
+            "remaining": 10.0,
+            "days_remaining": 330,
+            "daily_workload": 0.03
         }
     ]
 };
@@ -189,10 +207,18 @@
         </div>`;
     }
 
-    function createGoalBar(title, current, target, unit) {
+    function createGoalBar(title, current, target, unit, endDate, dailyWorkload, daysRemaining) {
         const safeTarget = target > 0 ? target : 1;
         const percent = Math.min((current / safeTarget) * 100, 100);
         const unitLabel = unit ? ` ${unit}` : '';
+        let deadlineInfo = '';
+        if (endDate) {
+            const workloadText = Number.isFinite(dailyWorkload)
+                ? `${dailyWorkload.toFixed(2)}${unitLabel}/Tag`
+                : 'N/A';
+            const daysText = Number.isFinite(daysRemaining) ? ` · ${daysRemaining} Tage` : '';
+            deadlineInfo = `<p class="text-xs text-gray-400 mt-1">Tagesziel: ${workloadText} · bis ${endDate}${daysText}</p>`;
+        }
         return `<div>
             <div class="flex justify-between text-xs mb-1">
                 <span class="font-bold text-gray-300 uppercase">${title}</span>
@@ -201,6 +227,7 @@
             <div class="progress-bar-container">
                 <div class="progress-bar" style="width: ${percent}%; background-color: var(--rpg-secondary);"></div>
             </div>
+            ${deadlineInfo}
         </div>`;
     }
 
@@ -255,12 +282,14 @@
         const sList = document.getElementById('skill-progress-list');
         const sData = stats.skill_xp_gained || {};
         const maxS = Math.max(...Object.values(sData), 1);
+        sList.innerHTML = '';
         Object.entries(sData).sort(([,a],[,b]) => b-a).forEach(([n, x]) => {
             if(x > 0) sList.innerHTML += createBar(n, x, (x/maxS)*100, 'var(--rpg-primary)');
         });
 
         // Individuelle Ziele
         const goalList = document.getElementById('goal-progress-list');
+        goalList.innerHTML = '';
         const goalsRaw = stats.goal_progress || stats.individual_goals || [];
         const goals = Array.isArray(goalsRaw)
             ? goalsRaw
@@ -273,12 +302,16 @@
                 const current = Number(goal.current ?? goal.progress ?? 0);
                 const target = Number(goal.target ?? goal.goal ?? 0);
                 const unit = goal.unit || "";
-                goalList.innerHTML += createGoalBar(title, current, target, unit);
+                const endDate = goal.end_date || goal.endDate || "";
+                const dailyWorkload = Number(goal.daily_workload ?? goal.dailyWorkload);
+                const daysRemaining = Number(goal.days_remaining ?? goal.daysRemaining);
+                goalList.innerHTML += createGoalBar(title, current, target, unit, endDate, dailyWorkload, daysRemaining);
             });
         }
 
         // 2. Spalte: Offene Quests
         const oList = document.getElementById('open-tasks-list');
+        oList.innerHTML = '';
         Object.entries(stats.open_tasks || {}).forEach(([cat, tasks]) => {
             tasks.forEach(t => {
                 oList.innerHTML += `<div class="text-sm p-2 bg-gray-800/50 rounded border-l-4 border-yellow-500 mb-1">${t}</div>`;
@@ -287,6 +320,7 @@
 
         // 3. Spalte: Heute XP
         const dList = document.getElementById('daily-breakdown-list');
+        dList.innerHTML = '';
         const dData = daily.daily_breakdown || {};
         const maxD = Math.max(...Object.values(dData), 1);
         Object.entries(dData).sort(([,a],[,b]) => b-a).forEach(([n, x]) => {
@@ -295,6 +329,7 @@
 
         // 4. Spalte: Heute Fertig
         const cList = document.getElementById('completed-today-list');
+        cList.innerHTML = '';
         const done = daily.completed_today || [];
         if(done.length === 0) cList.innerHTML = "<p class='text-gray-500'>Keine Quests heute.</p>";
         done.forEach(t => {

@@ -42,14 +42,24 @@ def load_rpg_rules(vault_path):
                         if len(parts) >= 5 and parts[3].lower() == "ziel":
                             goal_spec = parts[4]
                             if goal_spec.startswith("@") and "," in goal_spec:
-                                goal_name, goal_target = goal_spec[1:].split(",", 1)
-                                try:
+                                goal_parts = [p.strip() for p in goal_spec[1:].split(",")]
+                                if len(goal_parts) >= 2:
+                                    goal_name = goal_parts[0]
+                                    try:
+                                        goal_target = float(goal_parts[1])
+                                    except ValueError:
+                                        continue
+                                    end_date = None
+                                    if len(goal_parts) >= 3 and goal_parts[2]:
+                                        try:
+                                            end_date = datetime.date.fromisoformat(goal_parts[2]).isoformat()
+                                        except ValueError:
+                                            end_date = None
                                     goal_rules[tag] = {
                                         "name": goal_name.strip(),
-                                        "target": float(goal_target.strip())
+                                        "target": goal_target,
+                                        "end_date": end_date
                                     }
-                                except ValueError:
-                                    pass
     return rules, list(categories), goal_rules
 
 # --- 2. PARSE-FUNKTIONEN (Robust) ---
@@ -183,7 +193,8 @@ def scan_vault(vault_path):
                                 "title": goal_name,
                                 "current": 0.0,
                                 "target": goal["target"],
-                                "unit": "Lektionen"
+                                "unit": "Lektionen",
+                                "end_date": goal.get("end_date")
                             }
                         goal_progress[goal_name]["current"] += count
                 
@@ -202,6 +213,32 @@ def scan_vault(vault_path):
             for t in re.findall(r'^\s*- \[ \]\s*(.*)', f.read(), re.MULTILINE):
                 cat = get_task_category(t, TAG_RULES)
                 stats["open_tasks"].setdefault(cat, []).append(t.strip())
+
+    if stats["latest_date"]:
+        try:
+            current_date = datetime.date.fromisoformat(stats["latest_date"])
+        except ValueError:
+            current_date = None
+        if current_date:
+            for goal in goal_progress.values():
+                target = goal.get("target")
+                if target is None:
+                    continue
+                remaining = max(target - goal.get("current", 0), 0)
+                goal["remaining"] = round(remaining, 2)
+                end_date = goal.get("end_date")
+                if end_date:
+                    try:
+                        end_dt = datetime.date.fromisoformat(end_date)
+                    except ValueError:
+                        end_dt = None
+                    if end_dt:
+                        days_remaining = max((end_dt - current_date).days, 0)
+                        goal["days_remaining"] = days_remaining
+                        if days_remaining > 0:
+                            goal["daily_workload"] = round(remaining / days_remaining, 2)
+                        else:
+                            goal["daily_workload"] = round(remaining, 2)
 
     # Finales JSON
     output = {

@@ -15,6 +15,7 @@ XP_POINTS_MAPPING = {"1p": 1.0, "3p": 3.0, "5p": 5.0, "8p": 8.0}
 def load_rpg_rules(vault_path):
     rules_file = os.path.join(vault_path, RULES_PATH)
     rules = {}
+    goal_rules = {}
     categories = set(["Allgemein", "Finanziell", "Intellektuell", "Spirituell", "Physisch", "Sozial", "Sprachlich"])
     if os.path.exists(rules_file):
         with open(rules_file, "r", encoding="utf-8") as f:
@@ -34,7 +35,28 @@ def load_rpg_rules(vault_path):
                             "metric": metric
                         }
                         categories.add(cat)
-    return rules, list(categories)
+                        if len(parts) >= 5 and parts[3].lower() == "ziel":
+                            goal_spec = parts[4]
+                            if goal_spec.startswith("@") and "," in goal_spec:
+                                goal_parts = [p.strip() for p in goal_spec[1:].split(",")]
+                                if len(goal_parts) >= 2:
+                                    goal_name = goal_parts[0]
+                                    try:
+                                        goal_target = float(goal_parts[1])
+                                    except ValueError:
+                                        continue
+                                    end_date = None
+                                    if len(goal_parts) >= 3 and goal_parts[2]:
+                                        try:
+                                            end_date = datetime.date.fromisoformat(goal_parts[2]).isoformat()
+                                        except ValueError:
+                                            end_date = None
+                                    goal_rules[tag] = {
+                                        "name": goal_name.strip(),
+                                        "target": goal_target,
+                                        "end_date": end_date
+                                    }
+    return rules, list(categories), goal_rules
 
 # --- 2. PARSE-FUNKTIONEN (Robust) ---
 def parse_duration(task_text):
@@ -79,7 +101,7 @@ def get_task_category(task_text, tag_rules):
 
 # --- 3. KERN-SCAN (Full Scan Modus) ---
 def scan_vault(vault_path):
-    TAG_RULES, SKILL_CATEGORIES = load_rpg_rules(vault_path)
+    TAG_RULES, SKILL_CATEGORIES, GOAL_RULES = load_rpg_rules(vault_path)
     
     # Variablen für den Full-Scan (Reset bei jedem Start)
     total_xp = 0.0
@@ -153,18 +175,24 @@ def scan_vault(vault_path):
                             sallyup_best_min = s_time
                             print(f"[DEBUG] Neuer All-Time Rekord gefunden: {s_time} Min")
 
-                for tag, rule in TAG_RULES.items():
-                    if rule.get("mode") != "Ziel":
-                        continue
-                    if tag not in task.lower():
-                        continue
-                    goal_name, goal_total = parse_goal_reference(task, tag)
-                    if not goal_name:
-                        continue
-                    goal_data = goal_progress.setdefault(goal_name, {"completed": 0, "total": None})
-                    goal_data["completed"] += 1
-                    if goal_total is not None:
-                        goal_data["total"] = goal_total
+                for tag, goal in GOAL_RULES.items():
+                    if tag in task.lower():
+                        match = re.search(r'@(?P<name>[\w\-]+)\((?P<count>\d+(?:\.\d+)?)\)', task, re.IGNORECASE)
+                        if match:
+                            count = float(match.group('count'))
+                            goal_name = match.group('name')
+                        else:
+                            count = 1.0
+                            goal_name = goal["name"]
+                        if goal_name not in goal_progress:
+                            goal_progress[goal_name] = {
+                                "title": goal_name,
+                                "current": 0.0,
+                                "target": goal["target"],
+                                "unit": "Lektionen",
+                                "end_date": goal.get("end_date")
+                            }
+                        goal_progress[goal_name]["current"] += count
 
                 # Heutige Statistik
                 if is_latest:
@@ -182,6 +210,32 @@ def scan_vault(vault_path):
                 cat = get_task_category(t, TAG_RULES)
                 stats["open_tasks"].setdefault(cat, []).append(t.strip())
 
+    if stats["latest_date"]:
+        try:
+            current_date = datetime.date.fromisoformat(stats["latest_date"])
+        except ValueError:
+            current_date = None
+        if current_date:
+            for goal in goal_progress.values():
+                target = goal.get("target")
+                if target is None:
+                    continue
+                remaining = max(target - goal.get("current", 0), 0)
+                goal["remaining"] = round(remaining, 2)
+                end_date = goal.get("end_date")
+                if end_date:
+                    try:
+                        end_dt = datetime.date.fromisoformat(end_date)
+                    except ValueError:
+                        end_dt = None
+                    if end_dt:
+                        days_remaining = max((end_dt - current_date).days, 0)
+                        goal["days_remaining"] = days_remaining
+                        if days_remaining > 0:
+                            goal["daily_workload"] = round(remaining / days_remaining, 2)
+                        else:
+                            goal["daily_workload"] = round(remaining, 2)
+
     # Finales JSON
     output = {
         "total_xp": round(total_xp, 2),
@@ -194,7 +248,7 @@ def scan_vault(vault_path):
         "last_processed_date": stats["latest_date"],
         "open_tasks": stats["open_tasks"],
         "latest_daily_stats": stats["latest_daily_stats"],
-        "goal_progress": goal_progress
+        "goal_progress": list(goal_progress.values())
     }
     
     with open(os.path.join(vault_path, JSON_CACHE_PATH), "w", encoding="utf-8") as f:
